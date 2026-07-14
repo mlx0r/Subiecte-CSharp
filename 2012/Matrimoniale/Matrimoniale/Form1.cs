@@ -14,12 +14,27 @@ namespace Matrimoniale
             labelEroare.Text = "";
             if (string.IsNullOrEmpty(textBoxNume.Text))
             {
-                labelEroare.Text = "Va rugam sa introduceti un nume!";
+                labelEroare.Text = "Date invalide. Verificati campurile incomplete.";
                 formularValid = false;
             }
             if(string.IsNullOrEmpty(textBoxPrenume.Text))
             {
-                labelEroare.Text = "Va rugam sa introduceti un prenume!";
+                labelEroare.Text = "Date invalide. Verificati campurile incomplete.";
+                formularValid = false;
+            }
+            if(string.IsNullOrEmpty(numericUpDownVarsta.Text))
+            {
+                labelEroare.Text = "Date invalide. Verificati campurile incomplete.";
+                formularValid = false;
+            }
+            if(string.IsNullOrEmpty(comboBoxSex.Text))
+            {
+                labelEroare.Text = "Date invalide. Verificati campurile incomplete.";
+                formularValid = false;
+            }
+            if(string.IsNullOrEmpty(textBoxOcupatie.Text))
+            {
+                labelEroare.Text = "Date invalide. Verificati campurile incomplete.";
                 formularValid = false;
             }
             
@@ -54,7 +69,16 @@ namespace Matrimoniale
             }
             if(formularValid)
             {
-                labelEroare.Text = "Operatia de adaugare s-a finalizat cu success";
+                if(numericUpDownVarsta.Value < 18)
+                {
+                    labelEroare.Text = "Trebuie sa aveti cel putin 18 ani pentru a va inregistra";
+                    formularValid = false;
+                }
+            }
+
+            if(formularValid)
+            {
+                labelEroare.Text = "Operatia de adaugare s-a finalizat cu succes";
             }
         }
     }
