@@ -1,5 +1,6 @@
-namespace Matrimoniale;
+using Microsoft.Data.SqlClient;
 
+namespace Matrimoniale;
 
 public partial class FormMatrimoniale : Form
 {
@@ -65,11 +66,43 @@ public partial class FormMatrimoniale : Form
 
     private void AdaugarePersoana(Persoana persoana)
     {
-        MessageBox.Show(
-            $"Am adaugat persoana {persoana.Nume} {persoana.Prenume} cu succes",
-            "Persoana adaugata",
-            MessageBoxButtons.OK, 
-            MessageBoxIcon.Information);
+        var conn = new SqlConnection();
+        try
+        {
+            conn.ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\CUG\\source\\repos\\Subiecte-CSharp\\2012\\Matrimoniale\\Matrimoniale\\DatabaseMatrimoniale.mdf;Integrated Security=True;Connect Timeout=30";
+            conn.Open();
+
+            var command = new SqlCommand();
+            command.Connection = conn;
+            command.CommandText = "INSERT INTO Clienti (Nume, Prenume, Ocupatie, Varsta, Sex) VALUES ('"
+                + persoana.Nume + "', '" + persoana.Prenume + "', '" + persoana.Ocupatie + "', " + persoana.Varsta + ", '" + persoana.Sex + 
+
+                "') ";
+            // ExecuteNonQuery pt orice comanda ce nu este un select
+            command.ExecuteNonQuery();
+            // INSERT INTO CLIENTI (NUME, PRENUME, OCUPATIE, VARSTA, SEX) VALUES (
+            // 'Ionescu', 'Alin', 'Avocat', 24, 'M')
+
+            MessageBox.Show(
+           $"Am adaugat persoana {persoana.Nume} {persoana.Prenume} cu succes",
+           "Persoana adaugata",
+           MessageBoxButtons.OK,
+           MessageBoxIcon.Information);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+            "Eroare in inserarea persoanei. " + ex.Message,
+            "Eroare",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Warning);
+        }
+        finally
+        {
+            conn.Close();
+        }
+
+
     }
 
     private bool areCifra(string s)
