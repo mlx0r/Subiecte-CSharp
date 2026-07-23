@@ -66,15 +66,15 @@
             panelBursa.Size = new Size(800, 102);
             panelBursa.TabIndex = 1;
             // 
-            // numericUpDown1
+            // numericUpDownRataImprospatare
             // 
-            numericUpDown1.Location = new Point(573, 65);
-            numericUpDown1.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
-            numericUpDown1.Minimum = new decimal(new int[] { 100, 0, 0, 0 });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(180, 31);
-            numericUpDown1.TabIndex = 3;
-            numericUpDown1.Value = new decimal(new int[] { 100, 0, 0, 0 });
+            numericUpDownRataImprospatare.Location = new Point(573, 65);
+            numericUpDownRataImprospatare.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            numericUpDownRataImprospatare.Minimum = new decimal(new int[] { 100, 0, 0, 0 });
+            numericUpDownRataImprospatare.Name = "numericUpDownRataImprospatare";
+            numericUpDownRataImprospatare.Size = new Size(180, 31);
+            numericUpDownRataImprospatare.TabIndex = 3;
+            numericUpDownRataImprospatare.Value = new decimal(new int[] { 500, 0, 0, 0 });
             // 
             // labelReimprospatare
             // 
@@ -142,7 +142,7 @@
             Text = "Bursa";
             panelBursa.ResumeLayout(false);
             panelBursa.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownRataImprospatare).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -152,7 +152,7 @@
 
         private Button buttonDeschideBursa;
         private Panel panelBursa;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown numericUpDownRataImprospatare;
         private Label labelReimprospatare;
         private Button buttonInchideBursa;
         private MenuStrip menuStrip1;
