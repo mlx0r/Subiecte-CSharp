@@ -1,19 +1,14 @@
-namespace Bursa
+namespace Bursa;
+
+public partial class FormBursa : Form
 {
-    public partial class FormBursa : Form
+    public FormBursa()
     {
-        public FormBursa()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        private void FormBursa_Load(object sender, EventArgs e)
-        {
-
-        }
-        private void utilizatorMenu_MouseEnter(object sender, EventArgs e)
-        {
-            utilizatorMenu.ShowDropDown();
-        }
+    private void utilizatorMenu_MouseEnter(object sender, EventArgs e)
+    {
+        utilizatorMenu.ShowDropDown();
     }
 }

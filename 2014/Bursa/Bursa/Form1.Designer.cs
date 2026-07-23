@@ -140,7 +140,6 @@
             Name = "FormBursa";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Bursa";
-            Load += FormBursa_Load;
             panelBursa.ResumeLayout(false);
             panelBursa.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
