@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             buttonDeschideBursa = new Button();
             panelBursa = new Panel();
-            numericUpDown1 = new NumericUpDown();
+            numericUpDownRataImprospatare = new NumericUpDown();
             labelReimprospatare = new Label();
             buttonInchideBursa = new Button();
             menuStrip1 = new MenuStrip();
@@ -40,7 +40,7 @@
             graficProfitToolStripMenuItem = new ToolStripMenuItem();
             contextMenuStrip1 = new ContextMenuStrip(components);
             panelBursa.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownRataImprospatare).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -55,7 +55,7 @@
             // 
             // panelBursa
             // 
-            panelBursa.Controls.Add(numericUpDown1);
+            panelBursa.Controls.Add(numericUpDownRataImprospatare);
             panelBursa.Controls.Add(labelReimprospatare);
             panelBursa.Controls.Add(buttonInchideBursa);
             panelBursa.Controls.Add(buttonDeschideBursa);
