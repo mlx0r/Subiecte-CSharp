@@ -115,13 +115,13 @@
             // actiunileMeleToolStripMenuItem
             // 
             actiunileMeleToolStripMenuItem.Name = "actiunileMeleToolStripMenuItem";
-            actiunileMeleToolStripMenuItem.Size = new Size(270, 34);
+            actiunileMeleToolStripMenuItem.Size = new Size(224, 34);
             actiunileMeleToolStripMenuItem.Text = "Actiunile mele";
             // 
             // graficProfitToolStripMenuItem
             // 
             graficProfitToolStripMenuItem.Name = "graficProfitToolStripMenuItem";
-            graficProfitToolStripMenuItem.Size = new Size(270, 34);
+            graficProfitToolStripMenuItem.Size = new Size(224, 34);
             graficProfitToolStripMenuItem.Text = "Grafic profit";
             // 
             // contextMenuStrip1
