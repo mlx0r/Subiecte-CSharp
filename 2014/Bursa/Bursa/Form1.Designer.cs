@@ -54,6 +54,7 @@
             buttonDeschideBursa.TabIndex = 0;
             buttonDeschideBursa.Text = "Deschide bursa";
             buttonDeschideBursa.UseVisualStyleBackColor = true;
+            buttonDeschideBursa.Click += buttonDeschideBursa_Click;
             // 
             // panelBursa
             // 

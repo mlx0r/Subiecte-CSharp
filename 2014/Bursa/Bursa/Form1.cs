@@ -1,5 +1,6 @@
 using Microsoft.Data.SqlClient;
 using System.Data;
+using Timer = System.Windows.Forms.Timer;
 
 namespace Bursa;
 
@@ -61,7 +62,7 @@ public partial class FormBursa : Form
     {
         try
         {
-            string connectionString = 
+            string connectionString =
                 "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\rares\\source\\repos\\Subiecte-CSharp\\2014\\Bursa\\Bursa\\Database1.mdf;Integrated Security=True;Connect Timeout=30";
 
             var dataAdapter = new SqlDataAdapter(selectCommand, connectionString);
@@ -76,7 +77,7 @@ public partial class FormBursa : Form
             return null;
         }
     }
-    
+
     private void actiunileMeleToolStripMenuItem_Click(object sender, EventArgs e)
     {
         const string command = "SELECT Denumire, NrActiuni, Valoare FROM ListaBursa";
@@ -95,18 +96,37 @@ public partial class FormBursa : Form
             int.TryParse(dbRow[1].ToString(), out var nrActiuni);
             int.TryParse(dbRow[2].ToString(), out var valoare);
 
-            dataGridView1[(int) Coloane.Denumire, randCurent].Value = denumire;
-            dataGridView1[(int) Coloane.NumarActiuni, randCurent].Value = nrActiuni;
-            dataGridView1[(int) Coloane.ValoareActiuneInitial, randCurent].Value = valoare;
-            dataGridView1[(int) Coloane.ValoareActiuneMomentana, randCurent].Value = valoare;
-            dataGridView1[(int) Coloane.ValoareCrescutMomentan, randCurent].Value = "";
-            dataGridView1[(int) Coloane.TotalValoareInitial, randCurent].Value = nrActiuni * valoare;
-            dataGridView1[(int) Coloane.TotalValoareMomentana, randCurent].Value = "";
-            dataGridView1[(int) Coloane.ProfitPierdereMomentana, randCurent].Value = "";
-            dataGridView1[(int) Coloane.ProfitPierdereTotal, randCurent].Value = "";
+            dataGridView1[(int)Coloane.Denumire, randCurent].Value = denumire;
+            dataGridView1[(int)Coloane.NumarActiuni, randCurent].Value = nrActiuni;
+            dataGridView1[(int)Coloane.ValoareActiuneInitial, randCurent].Value = valoare;
+            dataGridView1[(int)Coloane.ValoareActiuneMomentana, randCurent].Value = valoare;
+            dataGridView1[(int)Coloane.ValoareCrescutMomentan, randCurent].Value = "";
+            dataGridView1[(int)Coloane.TotalValoareInitial, randCurent].Value = nrActiuni * valoare;
+            dataGridView1[(int)Coloane.TotalValoareMomentana, randCurent].Value = "";
+            dataGridView1[(int)Coloane.ProfitPierdereMomentana, randCurent].Value = "";
+            dataGridView1[(int)Coloane.ProfitPierdereTotal, randCurent].Value = "";
 
             randCurent++;
         }
         dataGridView1.Show();
+    }
+
+    // private int CountImprospatare = 1;
+
+    private void reimprospatare(object? sender, EventArgs e)
+    {
+        // MessageBox.Show($"Sunt la a {CountImprospatare++}-a improspatare");
+    }
+
+    private void buttonDeschideBursa_Click(object sender, EventArgs e)
+    {
+        var timer = new Timer()
+        {
+            Enabled = true,
+            Interval = (int)numericUpDownRataImprospatare.Value
+        };
+        timer.Tick += reimprospatare;
+
+
     }
 }
