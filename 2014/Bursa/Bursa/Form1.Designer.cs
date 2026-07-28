@@ -39,9 +39,14 @@
             actiunileMeleToolStripMenuItem = new ToolStripMenuItem();
             graficProfitToolStripMenuItem = new ToolStripMenuItem();
             contextMenuStrip1 = new ContextMenuStrip(components);
+            dataGridView1 = new DataGridView();
+            ColID = new DataGridViewTextBoxColumn();
+            ColDenumire = new DataGridViewTextBoxColumn();
+            ColObs = new DataGridViewTextBoxColumn();
             panelBursa.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownRataImprospatare).BeginInit();
             menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // buttonDeschideBursa
@@ -115,13 +120,14 @@
             // actiunileMeleToolStripMenuItem
             // 
             actiunileMeleToolStripMenuItem.Name = "actiunileMeleToolStripMenuItem";
-            actiunileMeleToolStripMenuItem.Size = new Size(224, 34);
+            actiunileMeleToolStripMenuItem.Size = new Size(270, 34);
             actiunileMeleToolStripMenuItem.Text = "Actiunile mele";
+            actiunileMeleToolStripMenuItem.Click += actiunileMeleToolStripMenuItem_Click;
             // 
             // graficProfitToolStripMenuItem
             // 
             graficProfitToolStripMenuItem.Name = "graficProfitToolStripMenuItem";
-            graficProfitToolStripMenuItem.Size = new Size(224, 34);
+            graficProfitToolStripMenuItem.Size = new Size(270, 34);
             graficProfitToolStripMenuItem.Text = "Grafic profit";
             // 
             // contextMenuStrip1
@@ -130,11 +136,44 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ColID, ColDenumire, ColObs });
+            dataGridView1.Location = new Point(57, 118);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.RowHeadersWidth = 62;
+            dataGridView1.Size = new Size(451, 93);
+            dataGridView1.TabIndex = 2;
+            // 
+            // ColID
+            // 
+            ColID.HeaderText = "Nr. Col";
+            ColID.MinimumWidth = 8;
+            ColID.Name = "ColID";
+            ColID.Width = 150;
+            // 
+            // ColDenumire
+            // 
+            ColDenumire.HeaderText = "Denumire Coloana";
+            ColDenumire.MinimumWidth = 8;
+            ColDenumire.Name = "ColDenumire";
+            ColDenumire.Width = 150;
+            // 
+            // ColObs
+            // 
+            ColObs.HeaderText = "Observații";
+            ColObs.MinimumWidth = 8;
+            ColObs.Name = "ColObs";
+            ColObs.Width = 150;
+            // 
             // FormBursa
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(dataGridView1);
             Controls.Add(panelBursa);
             MainMenuStrip = menuStrip1;
             Name = "FormBursa";
@@ -145,6 +184,7 @@
             ((System.ComponentModel.ISupportInitialize)numericUpDownRataImprospatare).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -160,5 +200,9 @@
         private ToolStripMenuItem actiunileMeleToolStripMenuItem;
         private ToolStripMenuItem graficProfitToolStripMenuItem;
         private ContextMenuStrip contextMenuStrip1;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn ColID;
+        private DataGridViewTextBoxColumn ColDenumire;
+        private DataGridViewTextBoxColumn ColObs;
     }
 }
