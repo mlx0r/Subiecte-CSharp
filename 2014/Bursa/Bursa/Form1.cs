@@ -51,6 +51,10 @@ public partial class FormBursa : Form
             };
             dataGridView1.Columns.Add(column);
         }
+        dataGridView1.Columns.Add(new DataGridViewButtonColumn
+        {
+            HeaderText = "Operatii"
+        });
     }
 
     private void utilizatorMenu_MouseEnter(object sender, EventArgs e)
@@ -90,6 +94,7 @@ public partial class FormBursa : Form
         var gridViewTable = new DataTable();
         var randCurent = 0;
         dataGridView1.RowCount = dbTable.Rows.Count;
+        dataGridView1.ReadOnly = true;
         foreach (DataRow dbRow in dbTable.Rows)
         {
             var denumire = dbRow[0];
@@ -105,9 +110,12 @@ public partial class FormBursa : Form
             dataGridView1[(int)Coloane.TotalValoareMomentana, randCurent].Value = "";
             dataGridView1[(int)Coloane.ProfitPierdereMomentana, randCurent].Value = "";
             dataGridView1[(int)Coloane.ProfitPierdereTotal, randCurent].Value = "";
+            dataGridView1[9, randCurent].Value = "Editare";
 
             randCurent++;
         }
+        dataGridView1.Rows[0].ReadOnly = false;
+        dataGridView1[0, 0].ReadOnly = false;
         dataGridView1.Show();
     }
 
@@ -115,6 +123,24 @@ public partial class FormBursa : Form
 
     private void reimprospatare(object? sender, EventArgs e)
     {
+        const string command = "SELECT Denumire, NrActiuni, Valoare FROM ListaBursa";
+        var dbTable = getData(command);
+        var randCurent = 0;
+        var val = new Random();
+        int modificare = val.Next(-5, 5);
+        dataGridView1.RowCount = dbTable.Rows.Count;
+        foreach (DataRow dbRow in dbTable.Rows)
+        {
+            int.TryParse(dbRow[1].ToString(), out var nrActiuni);
+            int.TryParse(dbRow[2].ToString(), out var valoare);
+            dataGridView1[(int)Coloane.ValoareCrescutMomentan, randCurent].Value = modificare;
+            dataGridView1[(int)Coloane.ValoareActiuneMomentana, randCurent].Value = valoare + modificare;
+            dataGridView1[(int)Coloane.TotalValoareMomentana, randCurent].Value = nrActiuni * (valoare + modificare);
+            dataGridView1[(int)Coloane.ProfitPierdereMomentana, randCurent].Value = nrActiuni * modificare;
+            dataGridView1[(int)Coloane.ProfitPierdereTotal, randCurent].Value = (nrActiuni * (valoare + modificare)) - (nrActiuni * valoare);
+            randCurent++;
+            modificare = val.Next(-5, 5);
+        }
         // MessageBox.Show($"Sunt la a {CountImprospatare++}-a improspatare");
     }
 
