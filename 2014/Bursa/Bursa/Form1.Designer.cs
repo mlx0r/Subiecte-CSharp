@@ -96,6 +96,7 @@
             buttonInchideBursa.TabIndex = 1;
             buttonInchideBursa.Text = "Inchide bursa";
             buttonInchideBursa.UseVisualStyleBackColor = true;
+            buttonInchideBursa.Click += buttonInchideBursa_Click;
             // 
             // menuStrip1
             // 

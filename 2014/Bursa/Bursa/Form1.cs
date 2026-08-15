@@ -1,5 +1,6 @@
 using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Timers;
 using Timer = System.Windows.Forms.Timer;
 
 namespace Bursa;
@@ -18,12 +19,14 @@ public partial class FormBursa : Form
         ProfitPierdereMomentana,
         ProfitPierdereTotal
     }
-
+    private Timer TimerImprospatare;
     public FormBursa()
     {
         InitializeComponent();
         dataGridView1.Hide();
         populateColumns();
+        TimerImprospatare = new Timer();
+        TimerImprospatare.Tick += reimprospatare;
     }
 
     private void populateColumns()
@@ -146,13 +149,12 @@ public partial class FormBursa : Form
 
     private void buttonDeschideBursa_Click(object sender, EventArgs e)
     {
-        var timer = new Timer()
-        {
-            Enabled = true,
-            Interval = (int)numericUpDownRataImprospatare.Value
-        };
-        timer.Tick += reimprospatare;
+        TimerImprospatare.Enabled = true;
+        TimerImprospatare.Interval = (int)numericUpDownRataImprospatare.Value;
+    }
 
-
+    private void buttonInchideBursa_Click(object sender, EventArgs e)
+    {
+        TimerImprospatare.Enabled = false;
     }
 }
