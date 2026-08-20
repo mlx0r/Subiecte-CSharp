@@ -59,6 +59,7 @@
             textBoxUtilizator.Name = "textBoxUtilizator";
             textBoxUtilizator.Size = new Size(150, 31);
             textBoxUtilizator.TabIndex = 2;
+            textBoxUtilizator.KeyDown += textBoxUtilizator_KeyDown;
             // 
             // textBoxParola
             // 
@@ -66,6 +67,7 @@
             textBoxParola.Name = "textBoxParola";
             textBoxParola.Size = new Size(150, 31);
             textBoxParola.TabIndex = 3;
+            textBoxParola.KeyDown += textBoxParola_KeyDown;
             // 
             // buttonAutentificare
             // 

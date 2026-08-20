@@ -18,7 +18,7 @@ public partial class FormAutentificare : Form
             FormAdministrare formAdmin = new FormAdministrare();
             formAdmin.Show();
         }
-        else if(utilizator == "Turisti" && parola == "oti2015")
+        else if (utilizator == "Turisti" && parola == "oti2015")
         {
             this.Hide();
             FormTuristi formTurist = new FormTuristi();
@@ -30,5 +30,22 @@ public partial class FormAutentificare : Form
         }
     }
 
+    private void textBoxUtilizator_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.KeyCode == Keys.Enter)
+        {
+            e.SuppressKeyPress = true;
+            textBoxParola.Focus();
+        }
+    }
+
+    private void textBoxParola_KeyDown(object sender, KeyEventArgs e)
+    {
+        if(e.KeyCode == Keys.Enter)
+        {
+            e.SuppressKeyPress = true;
+            buttonAutentificare.PerformClick();
+        }
+    }
 }
 
