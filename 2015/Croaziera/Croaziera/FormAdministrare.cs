@@ -6,13 +6,20 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Croaziera
-{
+namespace Croaziera;
+
     public partial class FormAdministrare : Form
     {
         public FormAdministrare()
         {
             InitializeComponent();
         }
+
+        private void buttonListaCroaziere_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FormListaCroaziere formCroaziere = new FormListaCroaziere();
+        formCroaziere.Show();
+        }
     }
-}
+
