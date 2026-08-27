@@ -38,42 +38,48 @@
             // labelUtilizator
             // 
             labelUtilizator.AutoSize = true;
-            labelUtilizator.Location = new Point(162, 170);
+            labelUtilizator.Location = new Point(113, 102);
+            labelUtilizator.Margin = new Padding(2, 0, 2, 0);
             labelUtilizator.Name = "labelUtilizator";
-            labelUtilizator.Size = new Size(133, 25);
+            labelUtilizator.Size = new Size(89, 15);
             labelUtilizator.TabIndex = 0;
             labelUtilizator.Text = "Nume utilizator";
             // 
             // labelParola
             // 
             labelParola.AutoSize = true;
-            labelParola.Location = new Point(235, 222);
+            labelParola.Location = new Point(164, 133);
+            labelParola.Margin = new Padding(2, 0, 2, 0);
             labelParola.Name = "labelParola";
-            labelParola.Size = new Size(60, 25);
+            labelParola.Size = new Size(40, 15);
             labelParola.TabIndex = 1;
             labelParola.Text = "Parola";
             // 
             // textBoxUtilizator
             // 
-            textBoxUtilizator.Location = new Point(318, 164);
+            textBoxUtilizator.Location = new Point(223, 98);
+            textBoxUtilizator.Margin = new Padding(2);
             textBoxUtilizator.Name = "textBoxUtilizator";
-            textBoxUtilizator.Size = new Size(150, 31);
+            textBoxUtilizator.Size = new Size(106, 23);
             textBoxUtilizator.TabIndex = 2;
             textBoxUtilizator.KeyDown += textBoxUtilizator_KeyDown;
             // 
             // textBoxParola
             // 
-            textBoxParola.Location = new Point(318, 216);
+            textBoxParola.Location = new Point(223, 130);
+            textBoxParola.Margin = new Padding(2);
             textBoxParola.Name = "textBoxParola";
-            textBoxParola.Size = new Size(150, 31);
+            textBoxParola.Size = new Size(106, 23);
             textBoxParola.TabIndex = 3;
+            textBoxParola.UseSystemPasswordChar = true;
             textBoxParola.KeyDown += textBoxParola_KeyDown;
             // 
             // buttonAutentificare
             // 
-            buttonAutentificare.Location = new Point(318, 273);
+            buttonAutentificare.Location = new Point(223, 164);
+            buttonAutentificare.Margin = new Padding(2);
             buttonAutentificare.Name = "buttonAutentificare";
-            buttonAutentificare.Size = new Size(150, 34);
+            buttonAutentificare.Size = new Size(105, 20);
             buttonAutentificare.TabIndex = 4;
             buttonAutentificare.Text = "Intrare in cont";
             buttonAutentificare.UseVisualStyleBackColor = true;
@@ -81,14 +87,15 @@
             // 
             // FormAutentificare
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(560, 270);
             Controls.Add(buttonAutentificare);
             Controls.Add(textBoxParola);
             Controls.Add(textBoxUtilizator);
             Controls.Add(labelParola);
             Controls.Add(labelUtilizator);
+            Margin = new Padding(2);
             Name = "FormAutentificare";
             Text = "Autentificare";
             ResumeLayout(false);
