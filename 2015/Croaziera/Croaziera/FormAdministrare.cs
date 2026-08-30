@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 namespace Croaziera;
 
@@ -33,6 +34,7 @@ public partial class FormAdministrare : Form
     public FormAdministrare()
     {
         InitializeComponent();
+        GetBasePath();
     }
 
     private void buttonListaCroaziere_Click(object sender, EventArgs e)
@@ -47,6 +49,7 @@ public partial class FormAdministrare : Form
         Coordonate = new List<Point>();
         MessageBox.Show("Da cate un click pe fiecare port, incepand din Constanta si terminand cu Odessa", "Informatie", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+        resetProgress();
     }
 
     private void pictureBoxMareaNeagra_MouseClick(object sender, MouseEventArgs e)
@@ -54,35 +57,109 @@ public partial class FormAdministrare : Form
         Coordonate.Add(e.Location);
         bool esteUltimul = Coordonate.Count == NumarTotalPorturi;
         string nrPunct = esteUltimul ? "ultimul punct" : $"punctul nr. {Coordonate.Count}";
-        updateProgress(Coordonate.Count, NumarTotalPorturi);
+        updateProgress(Coordonate.Count);
     }
 
-    private void updateProgress(int count, int numarTotalPorturi)
+    private void resetProgress()
     {
-        throw new NotImplementedException();
+        panelInitCoordonateProgress.Visible = true;
+        labelProgressCurent.Text = $"0 / {NumarTotalPorturi}";
+        progressBar1.Value = 0;
+        progressBar1.Minimum = 0;
+        progressBar1.Maximum = 13;
+    }
+    private void updateProgress(int nrCurentPorturi)
+    {
+        progressBar1.Value = nrCurentPorturi;
+        labelProgressCurent.Text = $"{nrCurentPorturi} / {NumarTotalPorturi}";
     }
 
     private void buttonSaveCoordonate_Click(object sender, EventArgs e)
     {
-        if(Coordonate.Count != NumarTotalPorturi)
+        if (Coordonate.Count != NumarTotalPorturi)
         {
             return;
         }
         Porturi = [];
 
-        for(int i = 0; i < NumarTotalPorturi; i++)
+        for (int i = 0; i < NumarTotalPorturi; i++)
         {
             var port = new Port(i + 1, numePorturi[i], Coordonate[i]);
             Porturi.Add(port);
         }
         salveazaPorturiInDB(Porturi);
+        panelInitCoordonateProgress.Visible = false;
     }
 
     private void salveazaPorturiInDB(List<Port> porturi)
     {
-        MessageBox.Show(Directory.GetCurrentDirectory(), "Folder curent");
-        string folderDb = "C:\\Users\\rares\\source\\repos\\Subiecte-CSharp\\2015\\Croaziera\\Croaziera";
-        string connectionString = $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={folderDb}\\CroazieraDB.mdf;Integrated Security=True";
+
+        string connectionString = $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={GetBasePath()}\\CroazieraDB.mdf;Integrated Security=True";
+        using var connection = new SqlConnection();
+        connection.ConnectionString = connectionString;
+        connection.Open();
+        var delCmd = new SqlCommand();
+        delCmd.Connection = connection;
+        delCmd.CommandText = "DELETE FROM Porturi";
+        delCmd.ExecuteNonQuery();
+        for (int i = 0; i < NumarTotalPorturi; i++)
+        {
+            var port = porturi[i];
+            var insertCmd = new SqlCommand();
+            insertCmd.Connection = connection;
+            insertCmd.CommandText = "INSERT INTO Porturi (Nume_Port, Pozitie_X, Pozitie_Y) VALUES (@NumePort, @PozitieX, @PozitieY)";
+            insertCmd.Parameters.AddWithValue("@NumePort", port.Nume);
+            insertCmd.Parameters.AddWithValue("@PozitieX", port.Pozitie.X);
+            insertCmd.Parameters.AddWithValue("@PozitieY", port.Pozitie.Y);
+
+            insertCmd.ExecuteNonQuery();
+        }
+    }
+
+    private void salveazaDistanteInDB()
+    {
+        string connectionString = $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={GetBasePath()}\\CroazieraDB.mdf;Integrated Security=True";
+        using var connection = new SqlConnection();
+        connection.ConnectionString = connectionString;
+        connection.Open();
+
+        var delCmd = new SqlCommand();
+        delCmd.Connection = connection;
+        delCmd.CommandText = "DELETE FROM Distante";
+        delCmd.ExecuteNonQuery();
+        string pathFisier = GetBasePath() + "\\" + "Harta_Distantelor.txt";
+        string[] linii = File.ReadAllLines(pathFisier);
+
+        for (int i = 0; i < linii.Length; i++)
+        {
+            string[] valori = linii[i].Split(' ');
+
+            for (int j = 0; j < valori.Length; j++)
+            {
+                var insertCmd = new SqlCommand();
+                insertCmd.Connection = connection;
+                insertCmd.CommandText = "INSERT INTO Distante (ID_Port, ID_Port_Destinatie, Nume_Port_Destinatie, Distanta) VALUES (@IDPort, @IDDest, @NumeDest, @Distanta)";
+
+                insertCmd.Parameters.AddWithValue("@IDPort", i + 1);
+                insertCmd.Parameters.AddWithValue("@IDDest", j + 1);
+                insertCmd.Parameters.AddWithValue("@NumeDest", Porturi[j].Nume);
+                insertCmd.Parameters.AddWithValue("@Distanta", double.Parse(valori[j]));
+
+                insertCmd.ExecuteNonQuery();
+            }
+        }
+    }
+
+    private string GetBasePath()
+    {
+        var currDir = Directory.GetCurrentDirectory();
+        var basePath = Directory.GetParent(currDir).Parent.Parent.FullName;
+        return basePath;
+    }
+
+    private void buttonActualizareDist_Click(object sender, EventArgs e)
+    {
+        salveazaDistanteInDB();
     }
 }
 
@@ -95,8 +172,8 @@ public class Port
         Pozitie = pozitie;
     }
 
-    int Id { get; }
-    string Nume { get; }
+    public int Id { get; }
+    public string Nume { get; }
 
-    Point Pozitie { get; }
+    public Point Pozitie { get; }
 }
