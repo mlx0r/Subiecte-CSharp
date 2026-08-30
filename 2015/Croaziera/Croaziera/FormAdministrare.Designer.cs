@@ -46,7 +46,7 @@
             // 
             pictureBoxMareaNeagra.Image = Properties.Resources.MareaNeagra;
             pictureBoxMareaNeagra.Location = new Point(11, 37);
-            pictureBoxMareaNeagra.Margin = new Padding(2);
+            pictureBoxMareaNeagra.Margin = new Padding(2, 2, 2, 2);
             pictureBoxMareaNeagra.Name = "pictureBoxMareaNeagra";
             pictureBoxMareaNeagra.Size = new Size(1000, 461);
             pictureBoxMareaNeagra.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -57,7 +57,7 @@
             // buttonInitCoordonate
             // 
             buttonInitCoordonate.Location = new Point(1030, 56);
-            buttonInitCoordonate.Margin = new Padding(2);
+            buttonInitCoordonate.Margin = new Padding(2, 2, 2, 2);
             buttonInitCoordonate.Name = "buttonInitCoordonate";
             buttonInitCoordonate.Size = new Size(144, 20);
             buttonInitCoordonate.TabIndex = 1;
@@ -68,7 +68,7 @@
             // buttonSaveCoordonate
             // 
             buttonSaveCoordonate.Location = new Point(1030, 99);
-            buttonSaveCoordonate.Margin = new Padding(2);
+            buttonSaveCoordonate.Margin = new Padding(2, 2, 2, 2);
             buttonSaveCoordonate.Name = "buttonSaveCoordonate";
             buttonSaveCoordonate.Size = new Size(144, 20);
             buttonSaveCoordonate.TabIndex = 2;
@@ -79,7 +79,7 @@
             // buttonActualizareDist
             // 
             buttonActualizareDist.Location = new Point(1030, 189);
-            buttonActualizareDist.Margin = new Padding(2);
+            buttonActualizareDist.Margin = new Padding(2, 2, 2, 2);
             buttonActualizareDist.Name = "buttonActualizareDist";
             buttonActualizareDist.Size = new Size(144, 20);
             buttonActualizareDist.TabIndex = 3;
@@ -90,17 +90,18 @@
             // buttonGenCroaziere
             // 
             buttonGenCroaziere.Location = new Point(1030, 268);
-            buttonGenCroaziere.Margin = new Padding(2);
+            buttonGenCroaziere.Margin = new Padding(2, 2, 2, 2);
             buttonGenCroaziere.Name = "buttonGenCroaziere";
             buttonGenCroaziere.Size = new Size(144, 20);
             buttonGenCroaziere.TabIndex = 4;
             buttonGenCroaziere.Text = "Generare croaziere";
             buttonGenCroaziere.UseVisualStyleBackColor = true;
+            buttonGenCroaziere.Click += buttonGenCroaziere_Click;
             // 
             // buttonListaCroaziere
             // 
             buttonListaCroaziere.Location = new Point(1030, 305);
-            buttonListaCroaziere.Margin = new Padding(2);
+            buttonListaCroaziere.Margin = new Padding(2, 2, 2, 2);
             buttonListaCroaziere.Name = "buttonListaCroaziere";
             buttonListaCroaziere.Size = new Size(144, 20);
             buttonListaCroaziere.TabIndex = 5;
@@ -148,7 +149,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1201, 656);
+            ClientSize = new Size(1201, 637);
             Controls.Add(panelInitCoordonateProgress);
             Controls.Add(buttonListaCroaziere);
             Controls.Add(buttonGenCroaziere);
@@ -156,7 +157,7 @@
             Controls.Add(buttonSaveCoordonate);
             Controls.Add(buttonInitCoordonate);
             Controls.Add(pictureBoxMareaNeagra);
-            Margin = new Padding(2);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "FormAdministrare";
             Text = "FormAdministrare";
             ((System.ComponentModel.ISupportInitialize)pictureBoxMareaNeagra).EndInit();

@@ -7,12 +7,15 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using Microsoft.Data.SqlClient;
+using System.Collections.Specialized;
 
 namespace Croaziera;
 
 public partial class FormAdministrare : Form
 {
-    private List<Point> Coordonate;
+    private List<Point> Coordonate = [];
+    private List<List<int>> Distante;
+    
     private List<string> numePorturi =
     [
         "Constanta",
@@ -35,6 +38,11 @@ public partial class FormAdministrare : Form
     {
         InitializeComponent();
         GetBasePath();
+        Distante = [];
+        for (int i = 0; i <= NumarTotalPorturi; i++)
+        {
+            Distante.Add([]);
+        }
     }
 
     private void buttonListaCroaziere_Click(object sender, EventArgs e)
@@ -46,7 +54,7 @@ public partial class FormAdministrare : Form
 
     private void buttonInitCoordonate_Click(object sender, EventArgs e)
     {
-        Coordonate = new List<Point>();
+        Coordonate = [];
         MessageBox.Show("Da cate un click pe fiecare port, incepand din Constanta si terminand cu Odessa", "Informatie", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         resetProgress();
@@ -138,14 +146,20 @@ public partial class FormAdministrare : Form
             {
                 var insertCmd = new SqlCommand();
                 insertCmd.Connection = connection;
-                insertCmd.CommandText = "INSERT INTO Distante (ID_Port, ID_Port_Destinatie, Nume_Port_Destinatie, Distanta) VALUES (@IDPort, @IDDest, @NumeDest, @Distanta)";
+                insertCmd.CommandText =
+                    "INSERT INTO Distante (ID_Port, ID_Port_Destinatie, Nume_Port_Destinatie, Distanta) VALUES (@IDPort, @IDDest, @NumeDest, @Distanta)";
 
-                insertCmd.Parameters.AddWithValue("@IDPort", i + 1);
-                insertCmd.Parameters.AddWithValue("@IDDest", j + 1);
+                int portStart = i + 1;
+                insertCmd.Parameters.AddWithValue("@IDPort", portStart);
+                int portDestinatie = j + 1;
+                insertCmd.Parameters.AddWithValue("@IDDest", portDestinatie);
                 insertCmd.Parameters.AddWithValue("@NumeDest", Porturi[j].Nume);
-                insertCmd.Parameters.AddWithValue("@Distanta", double.Parse(valori[j]));
+                int distanta = int.Parse(valori[j]);
+                insertCmd.Parameters.AddWithValue("@Distanta", distanta);
 
                 insertCmd.ExecuteNonQuery();
+
+                Distante[portStart][portDestinatie] = distanta;
             }
         }
     }
@@ -161,19 +175,68 @@ public partial class FormAdministrare : Form
     {
         salveazaDistanteInDB();
     }
-}
 
-public class Port
-{
-    public Port(int id, string nume, Point pozitie)
+    private void buttonGenCroaziere_Click(object sender, EventArgs e)
     {
-        Id = id;
-        Nume = nume;
-        Pozitie = pozitie;
+        List<int> tipuri = [3, 5, 8];
+        List<Croaziera> croaziere = [];
+        int id = 1;
+        for(int i = 1; i <= 13; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                var traseu = Traseu(i, j);
+                var pret = pretCroaziera(traseu);
+                var croaziera = new Croaziera(
+                    id++, 
+                    tipuri[j],
+                    traseu,
+                    DateTime.MinValue, DateTime.MinValue, pret, 0);
+                croaziere.Add(croaziera);
+            }
+        }
+
+        foreach (var croaziera in croaziere)
+        {
+            salveazaCroaziera(croaziera);
+        }
     }
 
-    public int Id { get; }
-    public string Nume { get; }
+    private void salveazaCroaziera(Croaziera croaziera)
+    {
+        // TODO: INSERT CROAZIERA
+    }
 
-    public Point Pozitie { get; }
+    private int pretCroaziera(List<int> traseu)
+    {
+        int pretTotal = 0;
+        for(int i = 0; i < traseu.Count - 1; i++)
+        {
+            pretTotal += Distante[traseu[i]][traseu[i + 1]] * 2;
+        }
+
+        return pretTotal;
+    }
+
+    private List<int> Traseu(int portStart, int nrZile)
+    {
+        List<int> listaPorturi = [];
+        listaPorturi.Add(portStart);
+
+        for(int i = 1; i < nrZile; i++)
+        {
+            listaPorturi.Add(next(portStart, i));
+        }
+        listaPorturi.Add(portStart);
+        return listaPorturi;
+    }
+
+    private int next(int start, int decalaj)
+    {
+        if(start + decalaj == NumarTotalPorturi)
+        {
+            return NumarTotalPorturi;
+        }
+        return (start + decalaj) % NumarTotalPorturi;
+    }
 }
