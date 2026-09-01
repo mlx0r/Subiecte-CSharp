@@ -1,14 +1,4 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Croaziera;
 
@@ -41,12 +31,6 @@ public partial class FormAdministrare : Form
     {
         InitializeComponent();
         GetBasePath();
-       /* Distante = [];
-        for (int i = 0; i <= NumarTotalPorturi; i++)
-        {
-            Distante.Add();
-        }
-        */
     }
 
     private void buttonListaCroaziere_Click(object sender, EventArgs e)
@@ -147,10 +131,12 @@ public partial class FormAdministrare : Form
 
             for (int j = 0; j < valori.Length; j++)
             {
-                var insertCmd = new SqlCommand();
-                insertCmd.Connection = connection;
-                insertCmd.CommandText =
-                    "INSERT INTO Distante (ID_Port, ID_Port_Destinatie, Nume_Port_Destinatie, Distanta) VALUES (@IDPort, @IDDest, @NumeDest, @Distanta)";
+                var insertCmd = new SqlCommand
+                {
+                    Connection = connection,
+                    CommandText =
+                        "INSERT INTO Distante (ID_Port, ID_Port_Destinatie, Nume_Port_Destinatie, Distanta) VALUES (@IDPort, @IDDest, @NumeDest, @Distanta)"
+                };
 
                 int portStart = i + 1;
                 insertCmd.Parameters.AddWithValue("@IDPort", portStart);
@@ -181,9 +167,11 @@ public partial class FormAdministrare : Form
         connection.ConnectionString = connectionString;
         connection.Open();
 
-        var delCmd = new SqlCommand();
-        delCmd.Connection = connection;
-        delCmd.CommandText = $"DELETE FROM {Tabel}";
+        var delCmd = new SqlCommand
+        {
+            Connection = connection,
+            CommandText = $"DELETE FROM {Tabel}"
+        };
         delCmd.ExecuteNonQuery();
     }
 
@@ -232,11 +220,12 @@ public partial class FormAdministrare : Form
         connection.ConnectionString = connectionString;
         connection.Open();
 
-        var insertCmd = new SqlCommand();
-
-        insertCmd.Connection = connection;
-        insertCmd.CommandText = @"INSERT INTO Croaziere (ID_Croaziera, Tip_Croaziera, Lista_Porturi, Data_Start, Data_Final, Pret, Nr_Pasageri) VALUES 
-                                  (@IdCroaziera, @TipCroaziera, @ListaPorturi, @DataStart, @DataFinal, @Pret, @NrPasageri)";
+        var insertCmd = new SqlCommand
+        {
+            Connection = connection,
+            CommandText = @"INSERT INTO Croaziere (ID_Croaziera, Tip_Croaziera, Lista_Porturi, Data_Start, Data_Final, Pret, Nr_Pasageri) VALUES 
+                                  (@IdCroaziera, @TipCroaziera, @ListaPorturi, @DataStart, @DataFinal, @Pret, @NrPasageri)"
+        };
 
         insertCmd.Parameters.AddWithValue("@IdCroaziera", croaziera.Id);
         insertCmd.Parameters.AddWithValue("@TipCroaziera", croaziera.Tip);
