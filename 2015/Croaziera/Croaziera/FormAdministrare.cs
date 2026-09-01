@@ -116,9 +116,11 @@ public partial class FormAdministrare : Form
         for (int i = 0; i < NumarTotalPorturi; i++)
         {
             var port = porturi[i];
-            var insertCmd = new SqlCommand();
-            insertCmd.Connection = connection;
-            insertCmd.CommandText = "INSERT INTO Porturi (Nume_Port, Pozitie_X, Pozitie_Y) VALUES (@NumePort, @PozitieX, @PozitieY)";
+            var insertCmd = new SqlCommand
+            {
+                Connection = connection,
+                CommandText = "INSERT INTO Porturi (Nume_Port, Pozitie_X, Pozitie_Y) VALUES (@NumePort, @PozitieX, @PozitieY)"
+            };
             insertCmd.Parameters.AddWithValue("@NumePort", port.Nume);
             insertCmd.Parameters.AddWithValue("@PozitieX", port.Pozitie.X);
             insertCmd.Parameters.AddWithValue("@PozitieY", port.Pozitie.Y);
@@ -203,14 +205,16 @@ public partial class FormAdministrare : Form
             {
                 var traseu = Traseu(i, j);
                 var pret = pretCroaziera(traseu);
-                var croaziera = new Croaziera();
-                croaziera.Id = id++;
-                croaziera.Tip = tipuri[j];
-                croaziera.ListaPorturi = traseu;
-                croaziera.Start = new DateTime(2026, 1, 1);
-                croaziera.Final = new DateTime(2026, 1, 1);
-                croaziera.Pret = pret;
-                croaziera.NrPasageri = 0;
+                var croaziera = new Croaziera
+                {
+                    Id = id++,
+                    Tip = tipuri[j],
+                    ListaPorturi = traseu,
+                    Start = new DateTime(2026, 1, 1),
+                    Final = new DateTime(2026, 1, 1),
+                    Pret = pret,
+                    NrPasageri = 0
+                };
                 croaziere.Add(croaziera);
             }
         }
@@ -263,13 +267,13 @@ public partial class FormAdministrare : Form
 
         for(int i = 1; i < nrZile; i++)
         {
-            listaPorturi.Add(next(portStart, i));
+            listaPorturi.Add(Next(portStart, i));
         }
         listaPorturi.Add(portStart);
         return listaPorturi;
     }
 
-    private int next(int start, int decalaj)
+    private int Next(int start, int decalaj)
     {
         if(start + decalaj == NumarTotalPorturi)
         {
