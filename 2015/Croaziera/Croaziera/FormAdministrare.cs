@@ -1,21 +1,24 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.SqlClient;
-using Microsoft.Data.SqlClient;
-using System.Collections.Specialized;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Croaziera;
 
 public partial class FormAdministrare : Form
 {
     private List<Point> Coordonate = [];
-    private List<List<int>> Distante;
-    
+    // private List<List<int>> Distante;
+    int[,] Distante = new int[14, 14];
+
+
     private List<string> numePorturi =
     [
         "Constanta",
@@ -38,11 +41,12 @@ public partial class FormAdministrare : Form
     {
         InitializeComponent();
         GetBasePath();
-        Distante = [];
+       /* Distante = [];
         for (int i = 0; i <= NumarTotalPorturi; i++)
         {
-            Distante.Add([]);
+            Distante.Add();
         }
+        */
     }
 
     private void buttonListaCroaziere_Click(object sender, EventArgs e)
@@ -102,14 +106,13 @@ public partial class FormAdministrare : Form
     private void salveazaPorturiInDB(List<Port> porturi)
     {
 
+        deleteTabelDB("Porturi");
+
         string connectionString = $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={GetBasePath()}\\CroazieraDB.mdf;Integrated Security=True";
         using var connection = new SqlConnection();
         connection.ConnectionString = connectionString;
         connection.Open();
-        var delCmd = new SqlCommand();
-        delCmd.Connection = connection;
-        delCmd.CommandText = "DELETE FROM Porturi";
-        delCmd.ExecuteNonQuery();
+
         for (int i = 0; i < NumarTotalPorturi; i++)
         {
             var port = porturi[i];
@@ -126,17 +129,15 @@ public partial class FormAdministrare : Form
 
     private void salveazaDistanteInDB()
     {
+        deleteTabelDB("Distante");
+
+        string pathFisier = GetBasePath() + "\\" + "Harta_Distantelor.txt";
+        string[] linii = File.ReadAllLines(pathFisier);
+
         string connectionString = $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={GetBasePath()}\\CroazieraDB.mdf;Integrated Security=True";
         using var connection = new SqlConnection();
         connection.ConnectionString = connectionString;
         connection.Open();
-
-        var delCmd = new SqlCommand();
-        delCmd.Connection = connection;
-        delCmd.CommandText = "DELETE FROM Distante";
-        delCmd.ExecuteNonQuery();
-        string pathFisier = GetBasePath() + "\\" + "Harta_Distantelor.txt";
-        string[] linii = File.ReadAllLines(pathFisier);
 
         for (int i = 0; i < linii.Length; i++)
         {
@@ -159,7 +160,7 @@ public partial class FormAdministrare : Form
 
                 insertCmd.ExecuteNonQuery();
 
-                Distante[portStart][portDestinatie] = distanta;
+                Distante[portStart, portDestinatie] = distanta;
             }
         }
     }
@@ -171,6 +172,19 @@ public partial class FormAdministrare : Form
         return basePath;
     }
 
+    private void deleteTabelDB(string Tabel)
+    {
+        string connectionString = $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={GetBasePath()}\\CroazieraDB.mdf;Integrated Security=True";
+        using var connection = new SqlConnection();
+        connection.ConnectionString = connectionString;
+        connection.Open();
+
+        var delCmd = new SqlCommand();
+        delCmd.Connection = connection;
+        delCmd.CommandText = $"DELETE FROM {Tabel}";
+        delCmd.ExecuteNonQuery();
+    }
+
     private void buttonActualizareDist_Click(object sender, EventArgs e)
     {
         salveazaDistanteInDB();
@@ -178,6 +192,8 @@ public partial class FormAdministrare : Form
 
     private void buttonGenCroaziere_Click(object sender, EventArgs e)
     {
+        deleteTabelDB("Croaziere");
+
         List<int> tipuri = [3, 5, 8];
         List<Croaziera> croaziere = [];
         int id = 1;
@@ -187,11 +203,14 @@ public partial class FormAdministrare : Form
             {
                 var traseu = Traseu(i, j);
                 var pret = pretCroaziera(traseu);
-                var croaziera = new Croaziera(
-                    id++, 
-                    tipuri[j],
-                    traseu,
-                    DateTime.MinValue, DateTime.MinValue, pret, 0);
+                var croaziera = new Croaziera();
+                croaziera.Id = id++;
+                croaziera.Tip = tipuri[j];
+                croaziera.ListaPorturi = traseu;
+                croaziera.Start = new DateTime(2026, 1, 1);
+                croaziera.Final = new DateTime(2026, 1, 1);
+                croaziera.Pret = pret;
+                croaziera.NrPasageri = 0;
                 croaziere.Add(croaziera);
             }
         }
@@ -204,7 +223,26 @@ public partial class FormAdministrare : Form
 
     private void salveazaCroaziera(Croaziera croaziera)
     {
-        // TODO: INSERT CROAZIERA
+        string connectionString = $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={GetBasePath()}\\CroazieraDB.mdf;Integrated Security=True";
+        using var connection = new SqlConnection();
+        connection.ConnectionString = connectionString;
+        connection.Open();
+
+        var insertCmd = new SqlCommand();
+
+        insertCmd.Connection = connection;
+        insertCmd.CommandText = @"INSERT INTO Croaziere (ID_Croaziera, Tip_Croaziera, Lista_Porturi, Data_Start, Data_Final, Pret, Nr_Pasageri) VALUES 
+                                  (@IdCroaziera, @TipCroaziera, @ListaPorturi, @DataStart, @DataFinal, @Pret, @NrPasageri)";
+
+        insertCmd.Parameters.AddWithValue("@IdCroaziera", croaziera.Id);
+        insertCmd.Parameters.AddWithValue("@TipCroaziera", croaziera.Tip);
+        insertCmd.Parameters.AddWithValue("@ListaPorturi", string.Join(",", croaziera.ListaPorturi));
+        insertCmd.Parameters.AddWithValue("@DataStart", croaziera.Start);
+        insertCmd.Parameters.AddWithValue("@DataFinal", croaziera.Final);
+        insertCmd.Parameters.AddWithValue("@Pret", croaziera.Pret);
+        insertCmd.Parameters.AddWithValue("@NrPasageri", croaziera.NrPasageri);
+
+        insertCmd.ExecuteNonQuery();
     }
 
     private int pretCroaziera(List<int> traseu)
@@ -212,7 +250,7 @@ public partial class FormAdministrare : Form
         int pretTotal = 0;
         for(int i = 0; i < traseu.Count - 1; i++)
         {
-            pretTotal += Distante[traseu[i]][traseu[i + 1]] * 2;
+            pretTotal += Distante[traseu[i], traseu[i + 1]] * 2;
         }
 
         return pretTotal;

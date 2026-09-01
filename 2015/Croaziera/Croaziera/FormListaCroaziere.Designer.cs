@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             labelSelectieCroaziera = new Label();
-            comboBox1 = new ComboBox();
+            comboBoxTipCroaziera = new ComboBox();
             dataGridView1 = new DataGridView();
             buttonInchidereLista = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -38,36 +38,40 @@
             // labelSelectieCroaziera
             // 
             labelSelectieCroaziera.AutoSize = true;
-            labelSelectieCroaziera.Location = new Point(111, 33);
+            labelSelectieCroaziera.Location = new Point(78, 20);
+            labelSelectieCroaziera.Margin = new Padding(2, 0, 2, 0);
             labelSelectieCroaziera.Name = "labelSelectieCroaziera";
-            labelSelectieCroaziera.Size = new Size(221, 25);
+            labelSelectieCroaziera.Size = new Size(147, 15);
             labelSelectieCroaziera.TabIndex = 0;
             labelSelectieCroaziera.Text = "Selectati tipul de croaziera:";
             // 
-            // comboBox1
+            // comboBoxTipCroaziera
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "3 zile", "5 zile", "8 zile" });
-            comboBox1.Location = new Point(422, 33);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(182, 33);
-            comboBox1.TabIndex = 1;
-            comboBox1.Text = "5 zile";
+            comboBoxTipCroaziera.FormattingEnabled = true;
+            comboBoxTipCroaziera.Items.AddRange(new object[] { "3 zile", "5 zile", "8 zile" });
+            comboBoxTipCroaziera.Location = new Point(295, 20);
+            comboBoxTipCroaziera.Margin = new Padding(2, 2, 2, 2);
+            comboBoxTipCroaziera.Name = "comboBoxTipCroaziera";
+            comboBoxTipCroaziera.Size = new Size(129, 23);
+            comboBoxTipCroaziera.TabIndex = 1;
+            comboBoxTipCroaziera.Text = "3 zile";
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(12, 92);
+            dataGridView1.Location = new Point(8, 55);
+            dataGridView1.Margin = new Padding(2, 2, 2, 2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(840, 272);
+            dataGridView1.Size = new Size(588, 163);
             dataGridView1.TabIndex = 2;
             // 
             // buttonInchidereLista
             // 
-            buttonInchidereLista.Location = new Point(845, 393);
+            buttonInchidereLista.Location = new Point(592, 236);
+            buttonInchidereLista.Margin = new Padding(2, 2, 2, 2);
             buttonInchidereLista.Name = "buttonInchidereLista";
-            buttonInchidereLista.Size = new Size(214, 34);
+            buttonInchidereLista.Size = new Size(150, 20);
             buttonInchidereLista.TabIndex = 3;
             buttonInchidereLista.Text = "Inchidere";
             buttonInchidereLista.UseVisualStyleBackColor = true;
@@ -75,13 +79,14 @@
             // 
             // FormListaCroaziere
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1118, 450);
+            ClientSize = new Size(783, 270);
             Controls.Add(buttonInchidereLista);
             Controls.Add(dataGridView1);
-            Controls.Add(comboBox1);
+            Controls.Add(comboBoxTipCroaziera);
             Controls.Add(labelSelectieCroaziera);
+            Margin = new Padding(2, 2, 2, 2);
             Name = "FormListaCroaziere";
             Text = "FormListaCroaziere";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -92,7 +97,7 @@
         #endregion
 
         private Label labelSelectieCroaziera;
-        private ComboBox comboBox1;
+        private ComboBox comboBoxTipCroaziera;
         private DataGridView dataGridView1;
         private Button buttonInchidereLista;
     }
