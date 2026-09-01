@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="Croaziera.Tests/Croaziera.Tests.csproj" Id="e103aa12-1434-4156-ab9d-885ae25d969b" />
   <Project Path="Croaziera/Croaziera.csproj" />
 </Solution>
