@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="GoodFood.Tests/GoodFood.Tests.csproj" Id="1bc3c32d-7f61-43db-9cc0-d5869da5b98a" />
   <Project Path="GoodFood/GoodFood.csproj" />
 </Solution>

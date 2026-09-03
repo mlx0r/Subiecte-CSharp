@@ -1,37 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using Microsoft.Data.SqlClient;
 
-namespace GoodFood
+namespace GoodFood;
+
+public partial class FormAutentificare : Form
 {
-    public partial class FormAutentificare : Form
+    public FormAutentificare()
     {
-        public FormAutentificare()
+        InitializeComponent();
+    }
+
+    private void buttonIntraInCont_Click(object sender, EventArgs e)
+    {
+        if (!esteValidUserul())
         {
-            InitializeComponent();
+            MessageBox.Show("Email sau parola incorecta!", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return;
+            
         }
 
-        private void buttonIntraInCont_Click(object sender, EventArgs e)
+        var formOptiuni = new FormOptiuni();
+        this.Hide();
+        formOptiuni.Show();
+    }
+
+    private bool esteValidUserul()
+    {
+        var email = textBoxEmail.Text;
+        var pass = textBoxPass.Text;
+        if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(pass))
         {
-            if(valideazaUtilizator())
-            {
-                FormOptiuni formOptiuni = new FormOptiuni();
-                this.Hide();
-                formOptiuni.Show();
-            }
-            else
-            {
-                MessageBox.Show("Email sau parola incorecta!", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            MessageBox.Show("Introduceti atat un email cat si o parola");
+            return false;
         }
 
-        private bool valideazaUtilizator()
+        var conn = new SqlConnection
         {
-            // testing purposes -- return true;
-        }
+            ConnectionString = Utils.ConnStr
+        };
+        conn.Open();
+        // TODO: COUNT(*) PT users cu matching email si pw
+        var cmd = new SqlCommand
+        {
+            CommandText = ""
+        };
+        
+        return true;
+    }
+
+    private void FormAutentificare_Load(object sender, EventArgs e)
+    {
+
     }
 }
