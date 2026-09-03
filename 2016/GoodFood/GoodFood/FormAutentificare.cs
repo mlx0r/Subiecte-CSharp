@@ -14,5 +14,24 @@ namespace GoodFood
         {
             InitializeComponent();
         }
+
+        private void buttonIntraInCont_Click(object sender, EventArgs e)
+        {
+            if(valideazaUtilizator())
+            {
+                FormOptiuni formOptiuni = new FormOptiuni();
+                this.Hide();
+                formOptiuni.Show();
+            }
+            else
+            {
+                MessageBox.Show("Email sau parola incorecta!", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool valideazaUtilizator()
+        {
+            // testing purposes -- return true;
+        }
     }
 }

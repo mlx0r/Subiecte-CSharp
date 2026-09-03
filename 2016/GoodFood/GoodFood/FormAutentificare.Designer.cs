@@ -76,6 +76,7 @@
             buttonIntraInCont.TabIndex = 4;
             buttonIntraInCont.Text = "Intra";
             buttonIntraInCont.UseVisualStyleBackColor = true;
+            buttonIntraInCont.Click += buttonIntraInCont_Click;
             // 
             // FormAutentificare
             // 

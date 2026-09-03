@@ -30,18 +30,18 @@
         {
             tabControl1 = new TabControl();
             tabPageCalcKcal = new TabPage();
+            buttonCalcKcal = new Button();
+            textBoxInaltime = new TextBox();
+            textBoxGreutate = new TextBox();
+            textBoxNecesarKcal = new TextBox();
+            textBoxAni = new TextBox();
+            labelKcalNecesari = new Label();
+            labelGreutate = new Label();
+            labelInaltime = new Label();
+            labelVarsta = new Label();
             tabPageComanda = new TabPage();
             tabPageGenMeniu = new TabPage();
             tabPageGraficKcal = new TabPage();
-            labelVarsta = new Label();
-            labelInaltime = new Label();
-            labelGreutate = new Label();
-            labelKcalNecesari = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
-            buttonCalcKcal = new Button();
             tabControl1.SuspendLayout();
             tabPageCalcKcal.SuspendLayout();
             SuspendLayout();
@@ -61,10 +61,10 @@
             // tabPageCalcKcal
             // 
             tabPageCalcKcal.Controls.Add(buttonCalcKcal);
-            tabPageCalcKcal.Controls.Add(textBox4);
-            tabPageCalcKcal.Controls.Add(textBox3);
-            tabPageCalcKcal.Controls.Add(textBox2);
-            tabPageCalcKcal.Controls.Add(textBox1);
+            tabPageCalcKcal.Controls.Add(textBoxInaltime);
+            tabPageCalcKcal.Controls.Add(textBoxGreutate);
+            tabPageCalcKcal.Controls.Add(textBoxNecesarKcal);
+            tabPageCalcKcal.Controls.Add(textBoxAni);
             tabPageCalcKcal.Controls.Add(labelKcalNecesari);
             tabPageCalcKcal.Controls.Add(labelGreutate);
             tabPageCalcKcal.Controls.Add(labelInaltime);
@@ -77,60 +77,43 @@
             tabPageCalcKcal.Text = "CalculatorKcal";
             tabPageCalcKcal.UseVisualStyleBackColor = true;
             // 
-            // tabPageComanda
+            // buttonCalcKcal
             // 
-            tabPageComanda.Location = new Point(4, 34);
-            tabPageComanda.Name = "tabPageComanda";
-            tabPageComanda.Padding = new Padding(3);
-            tabPageComanda.Size = new Size(449, 275);
-            tabPageComanda.TabIndex = 1;
-            tabPageComanda.Text = "Comanda";
-            tabPageComanda.UseVisualStyleBackColor = true;
+            buttonCalcKcal.Location = new Point(106, 201);
+            buttonCalcKcal.Name = "buttonCalcKcal";
+            buttonCalcKcal.Size = new Size(112, 34);
+            buttonCalcKcal.TabIndex = 8;
+            buttonCalcKcal.Text = "Calculeaza";
+            buttonCalcKcal.UseVisualStyleBackColor = true;
+            buttonCalcKcal.Click += buttonCalcKcal_Click;
             // 
-            // tabPageGenMeniu
+            // textBoxInaltime
             // 
-            tabPageGenMeniu.Location = new Point(4, 34);
-            tabPageGenMeniu.Name = "tabPageGenMeniu";
-            tabPageGenMeniu.Size = new Size(449, 275);
-            tabPageGenMeniu.TabIndex = 2;
-            tabPageGenMeniu.Text = "Generare Meniu";
-            tabPageGenMeniu.UseVisualStyleBackColor = true;
+            textBoxInaltime.Location = new Point(171, 73);
+            textBoxInaltime.Name = "textBoxInaltime";
+            textBoxInaltime.Size = new Size(150, 31);
+            textBoxInaltime.TabIndex = 7;
             // 
-            // tabPageGraficKcal
+            // textBoxGreutate
             // 
-            tabPageGraficKcal.Location = new Point(4, 34);
-            tabPageGraficKcal.Name = "tabPageGraficKcal";
-            tabPageGraficKcal.Size = new Size(449, 275);
-            tabPageGraficKcal.TabIndex = 3;
-            tabPageGraficKcal.Text = "Grafic Kcal";
-            tabPageGraficKcal.UseVisualStyleBackColor = true;
+            textBoxGreutate.Location = new Point(171, 122);
+            textBoxGreutate.Name = "textBoxGreutate";
+            textBoxGreutate.Size = new Size(150, 31);
+            textBoxGreutate.TabIndex = 6;
             // 
-            // labelVarsta
+            // textBoxNecesarKcal
             // 
-            labelVarsta.AutoSize = true;
-            labelVarsta.Location = new Point(28, 29);
-            labelVarsta.Name = "labelVarsta";
-            labelVarsta.Size = new Size(98, 25);
-            labelVarsta.TabIndex = 0;
-            labelVarsta.Text = "Varsta (ani)";
+            textBoxNecesarKcal.Location = new Point(574, 119);
+            textBoxNecesarKcal.Name = "textBoxNecesarKcal";
+            textBoxNecesarKcal.Size = new Size(150, 31);
+            textBoxNecesarKcal.TabIndex = 5;
             // 
-            // labelInaltime
+            // textBoxAni
             // 
-            labelInaltime.AutoSize = true;
-            labelInaltime.Location = new Point(28, 76);
-            labelInaltime.Name = "labelInaltime";
-            labelInaltime.Size = new Size(114, 25);
-            labelInaltime.TabIndex = 1;
-            labelInaltime.Text = "Inaltime (cm)";
-            // 
-            // labelGreutate
-            // 
-            labelGreutate.AutoSize = true;
-            labelGreutate.Location = new Point(28, 125);
-            labelGreutate.Name = "labelGreutate";
-            labelGreutate.Size = new Size(114, 25);
-            labelGreutate.TabIndex = 2;
-            labelGreutate.Text = "Greutate (kg)";
+            textBoxAni.Location = new Point(171, 26);
+            textBoxAni.Name = "textBoxAni";
+            textBoxAni.Size = new Size(150, 31);
+            textBoxAni.TabIndex = 4;
             // 
             // labelKcalNecesari
             // 
@@ -141,42 +124,60 @@
             labelKcalNecesari.TabIndex = 3;
             labelKcalNecesari.Text = "Necesar zilnic";
             // 
-            // textBox1
+            // labelGreutate
             // 
-            textBox1.Location = new Point(171, 26);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(150, 31);
-            textBox1.TabIndex = 4;
+            labelGreutate.AutoSize = true;
+            labelGreutate.Location = new Point(28, 125);
+            labelGreutate.Name = "labelGreutate";
+            labelGreutate.Size = new Size(114, 25);
+            labelGreutate.TabIndex = 2;
+            labelGreutate.Text = "Greutate (kg)";
             // 
-            // textBox2
+            // labelInaltime
             // 
-            textBox2.Location = new Point(574, 119);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(150, 31);
-            textBox2.TabIndex = 5;
+            labelInaltime.AutoSize = true;
+            labelInaltime.Location = new Point(28, 76);
+            labelInaltime.Name = "labelInaltime";
+            labelInaltime.Size = new Size(114, 25);
+            labelInaltime.TabIndex = 1;
+            labelInaltime.Text = "Inaltime (cm)";
             // 
-            // textBox3
+            // labelVarsta
             // 
-            textBox3.Location = new Point(171, 122);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(150, 31);
-            textBox3.TabIndex = 6;
+            labelVarsta.AutoSize = true;
+            labelVarsta.Location = new Point(28, 29);
+            labelVarsta.Name = "labelVarsta";
+            labelVarsta.Size = new Size(98, 25);
+            labelVarsta.TabIndex = 0;
+            labelVarsta.Text = "Varsta (ani)";
             // 
-            // textBox4
+            // tabPageComanda
             // 
-            textBox4.Location = new Point(171, 73);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(150, 31);
-            textBox4.TabIndex = 7;
+            tabPageComanda.Location = new Point(4, 34);
+            tabPageComanda.Name = "tabPageComanda";
+            tabPageComanda.Padding = new Padding(3);
+            tabPageComanda.Size = new Size(768, 275);
+            tabPageComanda.TabIndex = 1;
+            tabPageComanda.Text = "Comanda";
+            tabPageComanda.UseVisualStyleBackColor = true;
             // 
-            // buttonCalcKcal
+            // tabPageGenMeniu
             // 
-            buttonCalcKcal.Location = new Point(106, 201);
-            buttonCalcKcal.Name = "buttonCalcKcal";
-            buttonCalcKcal.Size = new Size(112, 34);
-            buttonCalcKcal.TabIndex = 8;
-            buttonCalcKcal.Text = "Calculeaza";
-            buttonCalcKcal.UseVisualStyleBackColor = true;
+            tabPageGenMeniu.Location = new Point(4, 34);
+            tabPageGenMeniu.Name = "tabPageGenMeniu";
+            tabPageGenMeniu.Size = new Size(768, 275);
+            tabPageGenMeniu.TabIndex = 2;
+            tabPageGenMeniu.Text = "Generare Meniu";
+            tabPageGenMeniu.UseVisualStyleBackColor = true;
+            // 
+            // tabPageGraficKcal
+            // 
+            tabPageGraficKcal.Location = new Point(4, 34);
+            tabPageGraficKcal.Name = "tabPageGraficKcal";
+            tabPageGraficKcal.Size = new Size(768, 275);
+            tabPageGraficKcal.TabIndex = 3;
+            tabPageGraficKcal.Text = "Grafic Kcal";
+            tabPageGraficKcal.UseVisualStyleBackColor = true;
             // 
             // FormOptiuni
             // 
@@ -200,10 +201,10 @@
         private TabPage tabPageGenMeniu;
         private TabPage tabPageGraficKcal;
         private Button buttonCalcKcal;
-        private TextBox textBox4;
-        private TextBox textBox3;
-        private TextBox textBox2;
-        private TextBox textBox1;
+        private TextBox textBoxInaltime;
+        private TextBox textBoxGreutate;
+        private TextBox textBoxNecesarKcal;
+        private TextBox textBoxAni;
         private Label labelKcalNecesari;
         private Label labelGreutate;
         private Label labelInaltime;
