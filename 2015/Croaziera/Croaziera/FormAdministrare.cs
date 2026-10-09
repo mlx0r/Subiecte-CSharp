@@ -100,11 +100,13 @@ public partial class FormAdministrare : Form
         for (int i = 0; i < NumarTotalPorturi; i++)
         {
             var port = porturi[i];
+            int idPort = i + 1;
             var insertCmd = new SqlCommand
             {
                 Connection = connection,
-                CommandText = "INSERT INTO Porturi (Nume_Port, Pozitie_X, Pozitie_Y) VALUES (@NumePort, @PozitieX, @PozitieY)"
+                CommandText = "INSERT INTO Porturi (ID_Port, Nume_Port, Pozitie_X, Pozitie_Y) VALUES (@idPorts, @NumePort, @PozitieX, @PozitieY)"
             };
+            insertCmd.Parameters.AddWithValue("@idPorts", idPort);
             insertCmd.Parameters.AddWithValue("@NumePort", port.Nume);
             insertCmd.Parameters.AddWithValue("@PozitieX", port.Pozitie.X);
             insertCmd.Parameters.AddWithValue("@PozitieY", port.Pozitie.Y);

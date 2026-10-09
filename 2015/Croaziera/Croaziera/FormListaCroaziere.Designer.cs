@@ -30,9 +30,9 @@
         {
             labelSelectieCroaziera = new Label();
             comboBoxTipCroaziera = new ComboBox();
-            dataGridView1 = new DataGridView();
+            dataGridViewCroaziere = new DataGridView();
             buttonInchidereLista = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewCroaziere).BeginInit();
             SuspendLayout();
             // 
             // labelSelectieCroaziera
@@ -50,26 +50,26 @@
             comboBoxTipCroaziera.FormattingEnabled = true;
             comboBoxTipCroaziera.Items.AddRange(new object[] { "3 zile", "5 zile", "8 zile" });
             comboBoxTipCroaziera.Location = new Point(295, 20);
-            comboBoxTipCroaziera.Margin = new Padding(2, 2, 2, 2);
+            comboBoxTipCroaziera.Margin = new Padding(2);
             comboBoxTipCroaziera.Name = "comboBoxTipCroaziera";
             comboBoxTipCroaziera.Size = new Size(129, 23);
             comboBoxTipCroaziera.TabIndex = 1;
             comboBoxTipCroaziera.Text = "3 zile";
             // 
-            // dataGridView1
+            // dataGridViewCroaziere
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(8, 55);
-            dataGridView1.Margin = new Padding(2, 2, 2, 2);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersWidth = 62;
-            dataGridView1.Size = new Size(588, 163);
-            dataGridView1.TabIndex = 2;
+            dataGridViewCroaziere.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCroaziere.Location = new Point(8, 55);
+            dataGridViewCroaziere.Margin = new Padding(2);
+            dataGridViewCroaziere.Name = "dataGridViewCroaziere";
+            dataGridViewCroaziere.RowHeadersWidth = 62;
+            dataGridViewCroaziere.Size = new Size(588, 163);
+            dataGridViewCroaziere.TabIndex = 2;
             // 
             // buttonInchidereLista
             // 
             buttonInchidereLista.Location = new Point(592, 236);
-            buttonInchidereLista.Margin = new Padding(2, 2, 2, 2);
+            buttonInchidereLista.Margin = new Padding(2);
             buttonInchidereLista.Name = "buttonInchidereLista";
             buttonInchidereLista.Size = new Size(150, 20);
             buttonInchidereLista.TabIndex = 3;
@@ -83,13 +83,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(783, 270);
             Controls.Add(buttonInchidereLista);
-            Controls.Add(dataGridView1);
+            Controls.Add(dataGridViewCroaziere);
             Controls.Add(comboBoxTipCroaziera);
             Controls.Add(labelSelectieCroaziera);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "FormListaCroaziere";
             Text = "FormListaCroaziere";
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewCroaziere).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -98,7 +98,7 @@
 
         private Label labelSelectieCroaziera;
         private ComboBox comboBoxTipCroaziera;
-        private DataGridView dataGridView1;
+        private DataGridView dataGridViewCroaziere;
         private Button buttonInchidereLista;
     }
 }
