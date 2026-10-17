@@ -15,13 +15,13 @@ public partial class FormAutentificare : Form
         if (utilizator == "Administrator" && parola == "agentie2015")
         {
             this.Hide();
-            FormAdministrare formAdmin = new FormAdministrare();
+            FormAdministrare formAdmin = new();
             formAdmin.Show();
         }
         else if (utilizator == "Turist" && parola == "oti2015")
         {
             this.Hide();
-            FormTuristi formTurist = new FormTuristi();
+            FormTuristi formTurist = new();
             formTurist.Show();
         }
         else

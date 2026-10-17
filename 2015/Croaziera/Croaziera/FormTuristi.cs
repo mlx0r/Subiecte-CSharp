@@ -1,11 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 
 namespace Croaziera
 {
@@ -17,11 +11,12 @@ namespace Croaziera
             populeazaDataGridViewCroaziereTuristi(0);
         }
 
-        private void redenumireHeader(string headerText, string headerInlocuit)
+        private void RedenumireHeader(string headerText, string headerInlocuit)
         {
             dataGridViewCroaziereTuristi.Columns[headerText].HeaderText = $"{headerInlocuit}";
         }
-        private void conversieIDNume(DataTable dataTableCroaziere, DataTable dataTablePorturi)
+
+        private void ConversieIDNume(DataTable dataTableCroaziere, DataTable dataTablePorturi)
         {
             foreach (DataRow randCroaziera in dataTableCroaziere.Rows)
             {
@@ -59,19 +54,21 @@ namespace Croaziera
             }
             string selectarePorturi = "SELECT ID_Port, Nume_Port FROM Porturi";
             string connString = Utils.GetConnectionString();
-            DataTable dataTable = new DataTable();
-            DataTable dataTablePort = new DataTable();
+            DataTable dataTable = new();
+            DataTable dataTablePort = new();
 
-            SqlConnection conn = new SqlConnection();
-            SqlCommand cmd = new SqlCommand();
-            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlConnection conn = new();
+            SqlCommand cmd = new();
+            SqlDataAdapter adapter = new();
 
             conn.ConnectionString = connString;
             cmd.Connection = conn;
             adapter.SelectCommand = cmd;
+            conn.Open();
 
             cmd.CommandText = selectarePorturi;
             adapter.Fill(dataTablePort);
+            conn.Close();
 
             cmd.CommandText = sortareCroaziere;
             
@@ -81,15 +78,15 @@ namespace Croaziera
             }
             adapter.Fill(dataTable);
 
-            conversieIDNume(dataTable, dataTablePort);
+            ConversieIDNume(dataTable, dataTablePort);
 
             dataGridViewCroaziereTuristi.DataSource = dataTable;
 
             dataGridViewCroaziereTuristi.Columns["ID_Croaziera"].Visible = false;
-            redenumireHeader("Tip_Croaziera", "ID");
-            redenumireHeader("Lista_Porturi", "Circuit");
-            redenumireHeader("Data_Start", "Data start");
-            redenumireHeader("Data_Final", "Data final");
+            RedenumireHeader("Tip_Croaziera", "ID");
+            RedenumireHeader("Lista_Porturi", "Circuit");
+            RedenumireHeader("Data_Start", "Data start");
+            RedenumireHeader("Data_Final", "Data final");
         }
 
         private void comboBoxNrZile_SelectedIndexChanged(object sender, EventArgs e)
@@ -110,11 +107,11 @@ namespace Croaziera
 
             string connString = Utils.GetConnectionString();
 
-            DataTable dataTableCoordonate = new DataTable();
+            DataTable dataTableCoordonate = new();
 
-            SqlConnection conn = new SqlConnection();
-            SqlCommand cmd = new SqlCommand();
-            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlConnection conn = new();
+            SqlCommand cmd = new();
+            SqlDataAdapter adapter = new();
             
 
             conn.ConnectionString = connString;

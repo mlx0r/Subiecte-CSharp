@@ -54,12 +54,12 @@ public partial class FormListaCroaziere : Form
         string sortareCroaziere = "SELECT * FROM Croaziere ORDER BY Tip_Croaziera ASC, ID_Croaziera ASC";
         string selectarePorturi = "SELECT ID_Port, Nume_Port FROM Porturi";
         string connString = Utils.GetConnectionString();
-        DataTable dataTable = new DataTable();
-        DataTable dataTablePort = new DataTable();
+        DataTable dataTable = new();
+        DataTable dataTablePort = new();
 
-        SqlConnection conn = new SqlConnection();
-        SqlCommand cmd = new SqlCommand();
-        SqlDataAdapter adapter = new SqlDataAdapter();
+        SqlConnection conn = new();
+        SqlCommand cmd = new();
+        SqlDataAdapter adapter = new();
 
         conn.ConnectionString = connString;
         cmd.Connection = conn;
@@ -85,7 +85,7 @@ public partial class FormListaCroaziere : Form
     private void buttonInchidereLista_Click(object sender, EventArgs e)
     {
         this.Hide();
-        FormAutentificare FormInit = new FormAutentificare();
+        FormAutentificare FormInit = new();
         FormInit.Show();
     }
 }
