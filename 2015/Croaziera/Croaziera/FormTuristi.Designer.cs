@@ -111,6 +111,7 @@
             buttonValidare.TabIndex = 6;
             buttonValidare.Text = "Validare";
             buttonValidare.UseVisualStyleBackColor = true;
+            buttonValidare.Click += buttonValidare_Click;
             // 
             // dateTimePickerStart
             // 

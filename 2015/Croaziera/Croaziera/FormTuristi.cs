@@ -74,7 +74,7 @@ namespace Croaziera
             adapter.Fill(dataTablePort);
 
             cmd.CommandText = sortareCroaziere;
-            cmd.Parameters.Clear();
+            
             if (nrZile > 0)
             {
                 cmd.Parameters.AddWithValue("@zileCroaziera", nrZile);
@@ -98,6 +98,47 @@ namespace Croaziera
             string[] tipCroaziera = zile.Split(' ');
             int numarZile = int.Parse(tipCroaziera[0]);
             populeazaDataGridViewCroaziereTuristi(numarZile);
+        }
+
+        private void buttonValidare_Click(object sender, EventArgs e)
+        {
+            //TO-DO: validarea croazierei + harta cu traseul croazierei validate
+            
+            string traseu = dataGridViewCroaziereTuristi.CurrentCell.Value.ToString();
+            string[] listaTraseu = traseu.Split(',');
+            string selectareCoordonate = "SELECT Pozitie_X, Pozitie_Y FROM Porturi";
+
+            string connString = Utils.GetConnectionString();
+
+            DataTable dataTableCoordonate = new DataTable();
+
+            SqlConnection conn = new SqlConnection();
+            SqlCommand cmd = new SqlCommand();
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            
+
+            conn.ConnectionString = connString;
+            cmd.Connection = conn;
+            cmd.CommandText = selectareCoordonate;
+            adapter.SelectCommand = cmd;
+
+            conn.Open();
+            adapter.Fill(dataTableCoordonate);
+            conn.Close();
+            foreach(string port in listaTraseu)
+            {
+                string portCurent = port;
+                
+                foreach(DataRow randCoordonate in dataTableCoordonate.Rows)
+                {
+                    if (randCoordonate["Nume_Port"].ToString() == portCurent)
+                    {
+                        int pozX = int.Parse(randCoordonate["Pozitie_X"].ToString());
+                        int pozY = int.Parse(randCoordonate["Pozitie_Y"].ToString());
+                        //de creeat liniile intre coordonate
+                    }
+                }
+            }
         }
     }
 }
