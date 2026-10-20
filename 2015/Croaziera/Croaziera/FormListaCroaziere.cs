@@ -71,11 +71,37 @@ public partial class FormListaCroaziere : Form
         cmd.CommandText = sortareCroaziere;
         adapter.Fill(dataTable);
 
-        conversieIDNume(dataTable, dataTablePort);
+        Dictionary<int, string> d = [];
+        d[1] = "Constanta";
+        d[2] = "Varna";
+        d[3] = "Burgas";
+        d[4] = "Istambul";
+        d[5] = "Kozlu";
+        d[6] = "Samsun";
+        d[7] = "Batumi";
+        d[8] = "Sokhumi";
+        d[9] = "Soci";
+        d[10] = "Anapa";
+        d[11] = "Yalta";
+        d[12] = "Sevastopol";
+        d[13] = "Odessa";
+
+        foreach (DataRow rand in dataTable.Rows)
+        {
+            string porturi = rand["Lista_Porturi"].ToString()!;
+            string[] listaID = porturi.Split(',');
+            for (int i = 0; i < listaID.Length; i++)
+            {
+                int id = int.Parse(listaID[i]);
+                listaID[i] = d[id];
+            }
+            rand["Lista_Porturi"] = string.Join(',', listaID);
+        }
+        //conversieIDNume(dataTable, dataTablePort);
 
         dataGridViewCroaziere.DataSource = dataTable;
 
-        dataGridViewCroaziere.Columns["ID_Croaziera"].Visible = false;
+        dataGridViewCroaziere.Columns["ID_Croaziera"]!.Visible = false;
         redenumireHeader("Tip_Croaziera", "ID");
         redenumireHeader("Lista_Porturi", "Circuit");
         redenumireHeader("Data_Start", "Data start");
