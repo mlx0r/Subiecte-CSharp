@@ -4,3 +4,6 @@ obj/
 *.csproj.user
 *.ldf
 *.mdf
+/2014/Bursa/Bursa/Database1.mdf
+/2015/Croaziera/Croaziera/CroazieraDB.mdf
+/2016/GoodFood/GoodFood/Good_FoodDB.mdf
