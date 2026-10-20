@@ -37,13 +37,15 @@
             buttonValidare = new Button();
             dateTimePickerStart = new DateTimePicker();
             dateTimePicker1 = new DateTimePicker();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCroaziereTuristi).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // labelCroaziera
             // 
             labelCroaziera.AutoSize = true;
-            labelCroaziera.Location = new Point(75, 28);
+            labelCroaziera.Location = new Point(11, 36);
             labelCroaziera.Margin = new Padding(2, 0, 2, 0);
             labelCroaziera.Name = "labelCroaziera";
             labelCroaziera.Size = new Size(147, 15);
@@ -54,7 +56,7 @@
             // 
             comboBoxNrZile.FormattingEnabled = true;
             comboBoxNrZile.Items.AddRange(new object[] { "3 zile", "5 zile", "8 zile" });
-            comboBoxNrZile.Location = new Point(276, 28);
+            comboBoxNrZile.Location = new Point(162, 33);
             comboBoxNrZile.Margin = new Padding(2);
             comboBoxNrZile.Name = "comboBoxNrZile";
             comboBoxNrZile.Size = new Size(129, 23);
@@ -64,18 +66,19 @@
             // 
             // dataGridViewCroaziereTuristi
             // 
+            dataGridViewCroaziereTuristi.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCroaziereTuristi.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCroaziereTuristi.Location = new Point(8, 70);
             dataGridViewCroaziereTuristi.Margin = new Padding(2);
             dataGridViewCroaziereTuristi.Name = "dataGridViewCroaziereTuristi";
             dataGridViewCroaziereTuristi.RowHeadersWidth = 62;
-            dataGridViewCroaziereTuristi.Size = new Size(525, 158);
+            dataGridViewCroaziereTuristi.Size = new Size(864, 496);
             dataGridViewCroaziereTuristi.TabIndex = 2;
             // 
             // labelPerioadaVoiaj
             // 
             labelPerioadaVoiaj.AutoSize = true;
-            labelPerioadaVoiaj.Location = new Point(560, 46);
+            labelPerioadaVoiaj.Location = new Point(14, 13);
             labelPerioadaVoiaj.Margin = new Padding(2, 0, 2, 0);
             labelPerioadaVoiaj.Name = "labelPerioadaVoiaj";
             labelPerioadaVoiaj.Size = new Size(146, 15);
@@ -85,7 +88,7 @@
             // labelDataStart
             // 
             labelDataStart.AutoSize = true;
-            labelDataStart.Location = new Point(560, 98);
+            labelDataStart.Location = new Point(14, 49);
             labelDataStart.Margin = new Padding(2, 0, 2, 0);
             labelDataStart.Name = "labelDataStart";
             labelDataStart.Size = new Size(63, 15);
@@ -95,7 +98,7 @@
             // labelDataFinal
             // 
             labelDataFinal.AutoSize = true;
-            labelDataFinal.Location = new Point(560, 147);
+            labelDataFinal.Location = new Point(17, 89);
             labelDataFinal.Margin = new Padding(2, 0, 2, 0);
             labelDataFinal.Name = "labelDataFinal";
             labelDataFinal.Size = new Size(60, 15);
@@ -104,7 +107,7 @@
             // 
             // buttonValidare
             // 
-            buttonValidare.Location = new Point(612, 190);
+            buttonValidare.Location = new Point(67, 110);
             buttonValidare.Margin = new Padding(2);
             buttonValidare.Name = "buttonValidare";
             buttonValidare.Size = new Size(123, 26);
@@ -117,7 +120,7 @@
             // 
             dateTimePickerStart.CustomFormat = "dd MMMM yyyy";
             dateTimePickerStart.Format = DateTimePickerFormat.Custom;
-            dateTimePickerStart.Location = new Point(628, 98);
+            dateTimePickerStart.Location = new Point(81, 49);
             dateTimePickerStart.Margin = new Padding(2);
             dateTimePickerStart.Name = "dateTimePickerStart";
             dateTimePickerStart.Size = new Size(162, 23);
@@ -127,23 +130,31 @@
             // 
             dateTimePicker1.CustomFormat = "dd MMMM yyyy";
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
-            dateTimePicker1.Location = new Point(628, 147);
+            dateTimePicker1.Location = new Point(81, 83);
             dateTimePicker1.Margin = new Padding(2);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(166, 23);
             dateTimePicker1.TabIndex = 8;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(labelPerioadaVoiaj);
+            panel1.Controls.Add(buttonValidare);
+            panel1.Controls.Add(dateTimePicker1);
+            panel1.Controls.Add(labelDataStart);
+            panel1.Controls.Add(dateTimePickerStart);
+            panel1.Controls.Add(labelDataFinal);
+            panel1.Location = new Point(877, 70);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(288, 141);
+            panel1.TabIndex = 9;
+            // 
             // FormTuristi
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(802, 270);
-            Controls.Add(dateTimePicker1);
-            Controls.Add(dateTimePickerStart);
-            Controls.Add(buttonValidare);
-            Controls.Add(labelDataFinal);
-            Controls.Add(labelDataStart);
-            Controls.Add(labelPerioadaVoiaj);
+            ClientSize = new Size(1177, 577);
+            Controls.Add(panel1);
             Controls.Add(dataGridViewCroaziereTuristi);
             Controls.Add(comboBoxNrZile);
             Controls.Add(labelCroaziera);
@@ -151,6 +162,8 @@
             Name = "FormTuristi";
             Text = "FormTuristi";
             ((System.ComponentModel.ISupportInitialize)dataGridViewCroaziereTuristi).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -166,5 +179,6 @@
         private Button buttonValidare;
         private DateTimePicker dateTimePickerStart;
         private DateTimePicker dateTimePicker1;
+        private Panel panel1;
     }
 }
