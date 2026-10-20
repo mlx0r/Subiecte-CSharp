@@ -65,8 +65,6 @@ namespace Croaziera
             dtCroaziere.Columns.Add(new DataColumn(headerDataFinal, typeof(string)));
             dtCroaziere.Columns.Add(new DataColumn(headerPret, typeof(int)));
             dtCroaziere.Columns.Add(new DataColumn(headerNrPasageri, typeof(int)));
-            
-            
 
             foreach (var c in croaziere)
             {
@@ -120,12 +118,7 @@ namespace Croaziera
         {
             var porturiListaNumereCuVirgula = row.Field<string>("Lista_Porturi") ?? "";
             var porturiNumereStr = porturiListaNumereCuVirgula.Split(",");
-            var porturi = new List<int>();
-            foreach (var portString in porturiNumereStr)
-            {
-                var portNumar = int.Parse(portString);
-                porturi.Add(portNumar);
-            }
+            var porturi = porturiNumereStr.Select(int.Parse).ToList();
 
             return new Croaziera
             {
@@ -209,52 +202,18 @@ namespace Croaziera
             // TODO: validarea croazierei + harta cu traseul croazierei validate
 
             string traseu = dataGridViewCroaziereTuristi.CurrentCell?.Value?.ToString() ?? "";
-            string[] listaTraseu = traseu.Split(',');
-
-            var coordonatePorturi = ObtineCoordonatePorturi();
-            
-        }
-
-        private List<(string NumePort, int PozitieX, int PozitieY)> ObtineCoordonatePorturi()
-        {
-            const string selectareCoordonate = "SELECT Nume_Port, Pozitie_X, Pozitie_Y FROM Porturi";
-
-            string connString = Utils.GetConnectionString();
-
-            DataTable dataTableCoordonate = new();
-
-            SqlConnection conn = new();
-            SqlCommand cmd = new();
-            SqlDataAdapter adapter = new();
-
-            conn.ConnectionString = connString;
-            cmd.Connection = conn;
-            cmd.CommandText = selectareCoordonate;
-            adapter.SelectCommand = cmd;
-
-            conn.Open();
-            adapter.Fill(dataTableCoordonate);
-            conn.Close();
-            List<(string NumePort, int PozitieX, int PozitieY)> rez = [];
-
-            foreach (DataRow randCoordonate in dataTableCoordonate.Rows)
+            if (traseu == "")
             {
-                // a != null ? a : b 
-                // <=>
-                // a ?? b
-                if (!int.TryParse(randCoordonate["Pozitie_X"].ToString(), out var pozX))
-                {
-                    pozX = -1;
-                }
-
-                if (!int.TryParse(randCoordonate["Pozitie_Y"].ToString(), out var pozY))
-                {
-                    pozY = -1;
-                }
-                rez.Add((randCoordonate["Nume_Port"].ToString() ?? string.Empty, pozX, pozY));
+                MessageBox.Show("Selecteaza un traseu");
+                return;
             }
-            return rez;
+            
+            var formVizualizareTraseu = new FormVizualizareTraseu(traseu.Split(',').ToList());
+            formVizualizareTraseu.Show();
+            Close();
         }
+
+        
 
     }
 }

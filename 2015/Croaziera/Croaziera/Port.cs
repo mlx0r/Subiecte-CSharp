@@ -31,4 +31,20 @@ public class Port
         [13] = "Odessa",
     };
 
+    public static Dictionary<string, int> NameToNumber = GetNameToNumber();
+
+    private static Dictionary<string, int> GetNameToNumber()
+    {
+        Dictionary<string, int> rez = [];
+        foreach (var keyValuePair in NumberToName)
+        {
+            var number = keyValuePair.Key;
+            var name = keyValuePair.Value;
+
+            rez[name] = number;
+        }
+
+        return rez;
+    }
+
 }
