@@ -91,7 +91,7 @@ public partial class FormAdministrare : Form
     private void salveazaPorturiInDB(List<Port> porturi)
     {
 
-        DeleteTabelDB("Porturi");
+        stergeDinTabel("Porturi");
         
         using var connection = new SqlConnection();
         connection.ConnectionString = Utils.GetConnectionString();
@@ -117,7 +117,7 @@ public partial class FormAdministrare : Form
 
     private void salveazaDistanteInDB()
     {
-        DeleteTabelDB("Distante");
+        stergeDinTabel("Distante");
 
         string pathFisier = Utils.GetBasePath() + "\\" + "Harta_Distantelor.txt";
         string[] linii = File.ReadAllLines(pathFisier);
@@ -156,7 +156,7 @@ public partial class FormAdministrare : Form
 
     
 
-    private int DeleteTabelDB(string Tabel)
+    private int stergeDinTabel(string Tabel)
     {
         using var connection = new SqlConnection();
         connection.ConnectionString = Utils.GetConnectionString();
@@ -178,8 +178,7 @@ public partial class FormAdministrare : Form
 
     private void buttonGenCroaziere_Click(object sender, EventArgs e)
     {
-        var rowsDeleted = DeleteTabelDB("Croaziere");
-        MessageBox.Show($"Rows Deleted: {rowsDeleted}");
+        stergeDinTabel("Croaziere");
 
         List<int> tipuri = [3, 5, 8];
         List<Croaziera> croaziere = [];
@@ -196,8 +195,8 @@ public partial class FormAdministrare : Form
                     Id = id++,
                     Tip = tipuri[j],
                     ListaPorturi = traseuCurent,
-                    Start = new DateTime(2026, 1, 1),
-                    Final = new DateTime(2026, 1, 1),
+                    Start = null,
+                    Final = null,
                     Pret = pret,
                     NrPasageri = 0
                 };
@@ -238,8 +237,8 @@ public partial class FormAdministrare : Form
         insertCmd.Parameters.AddWithValue("@IdCroaziera", croaziera.Id);
         insertCmd.Parameters.AddWithValue("@TipCroaziera", croaziera.Tip);
         insertCmd.Parameters.AddWithValue("@ListaPorturi", string.Join(",", croaziera.ListaPorturi));
-        insertCmd.Parameters.AddWithValue("@DataStart", croaziera.Start);
-        insertCmd.Parameters.AddWithValue("@DataFinal", croaziera.Final);
+        insertCmd.Parameters.AddWithValue("@DataStart", croaziera.Start.HasValue ? croaziera.Start.Value : DBNull.Value);
+        insertCmd.Parameters.AddWithValue("@DataFinal", croaziera.Final.HasValue ? croaziera.Final.Value : DBNull.Value);
         insertCmd.Parameters.AddWithValue("@Pret", croaziera.Pret);
         insertCmd.Parameters.AddWithValue("@NrPasageri", croaziera.NrPasageri);
 
