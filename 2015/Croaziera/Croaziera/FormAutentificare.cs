@@ -1,5 +1,4 @@
 namespace Croaziera;
-using Microsoft.Data.SqlClient;
 
 public partial class FormAutentificare : Form
 {
@@ -10,8 +9,8 @@ public partial class FormAutentificare : Form
 
     private void buttonAutentificare_Click(object sender, EventArgs e)
     {
-        string utilizator = textBoxUtilizator.Text;
-        string parola = textBoxParola.Text;
+        var utilizator = textBoxUtilizator.Text;
+        var parola = textBoxParola.Text;
         if (utilizator == "Administrator" && parola == "agentie2015")
         {
             this.Hide();
