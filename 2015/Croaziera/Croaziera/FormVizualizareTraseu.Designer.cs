@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             pictureBoxMareaNeagra = new PictureBox();
+            buttonRevenireAuth = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBoxMareaNeagra).BeginInit();
             SuspendLayout();
             // 
@@ -42,12 +43,24 @@
             pictureBoxMareaNeagra.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxMareaNeagra.TabIndex = 1;
             pictureBoxMareaNeagra.TabStop = false;
+            pictureBoxMareaNeagra.Paint += pictureBoxMareaNeagra_Paint;
+            // 
+            // buttonRevenireAuth
+            // 
+            buttonRevenireAuth.Location = new Point(1026, 426);
+            buttonRevenireAuth.Name = "buttonRevenireAuth";
+            buttonRevenireAuth.Size = new Size(151, 27);
+            buttonRevenireAuth.TabIndex = 2;
+            buttonRevenireAuth.Text = "Inchidere";
+            buttonRevenireAuth.UseVisualStyleBackColor = true;
+            buttonRevenireAuth.Click += buttonRevenireAuth_Click;
             // 
             // FormVizualizareTraseu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1201, 637);
+            Controls.Add(buttonRevenireAuth);
             Controls.Add(pictureBoxMareaNeagra);
             Name = "FormVizualizareTraseu";
             Text = "Vizualizare Traseu";
@@ -59,5 +72,6 @@
         #endregion
 
         private PictureBox pictureBoxMareaNeagra;
+        private Button buttonRevenireAuth;
     }
 }
