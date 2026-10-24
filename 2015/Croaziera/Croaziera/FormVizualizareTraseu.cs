@@ -5,6 +5,7 @@ namespace Croaziera;
 
 public partial class FormVizualizareTraseu : Form
 {
+    private List<string> listaPorturiDesen;
     private FormVizualizareTraseu()
     {
         InitializeComponent();
@@ -13,19 +14,13 @@ public partial class FormVizualizareTraseu : Form
     public FormVizualizareTraseu(List<string> listaPorturi)
     {
         InitializeComponent();
-        var coordonate = ObtineCoordonatePorturi().ToDictionary(x => x.NumePort, x => new Point(x.PozitieX, x.PozitieY));
-        for (int i = 0; i < listaPorturi.Count - 1; i++)
-        {
-            var portStart = listaPorturi[i];
-            var portFinal = listaPorturi[i + 1];
-            deseneazaLinie(coordonate[portStart], coordonate[portFinal]);
-        }
-        pictureBoxMareaNeagra.Invalidate(); // ? 
+        listaPorturiDesen = listaPorturi;
+        pictureBoxMareaNeagra.Paint += pictureBoxMareaNeagra_Paint;
+        //pictureBoxMareaNeagra.Invalidate(); // ? 
     }
 
-    private void deseneazaLinie(Point start, Point final)
+    private void deseneazaLinie(Graphics g, Point start, Point final)
     {
-        var g = pictureBoxMareaNeagra.CreateGraphics();
         var pen = new Pen(Color.Red);
         g.DrawLine(pen, start, final);
 
@@ -75,5 +70,24 @@ public partial class FormVizualizareTraseu : Form
     private void FormVizualizareTraseu_Load(object sender, EventArgs e)
     {
 
+    }
+
+    private void pictureBoxMareaNeagra_Paint(object sender, PaintEventArgs e)
+    {
+        var coordonate = ObtineCoordonatePorturi().ToDictionary(x => x.NumePort, x => new Point(x.PozitieX, x.PozitieY));
+        for (int i = 0; i < listaPorturiDesen.Count - 1; i++)
+        {
+            var portStart = listaPorturiDesen[i];
+            var portFinal = listaPorturiDesen[i + 1];
+            deseneazaLinie(e.Graphics, coordonate[portStart], coordonate[portFinal]);
+        }
+        pictureBoxMareaNeagra.Paint += pictureBoxMareaNeagra_Paint;
+    }
+
+    private void buttonRevenireAuth_Click(object sender, EventArgs e)
+    {
+        this.Hide();
+        FormAutentificare form = new();
+        form.Show();
     }
 }
