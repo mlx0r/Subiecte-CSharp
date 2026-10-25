@@ -41,8 +41,17 @@ public partial class FormAutentificare : Form
         // TODO: COUNT(*) PT users cu matching email si pw
         var cmd = new SqlCommand
         {
-            CommandText = ""
+            CommandText = "SELECT COUNT(*) FROM Clienti WHERE email=@email AND parola=@parola",
+            Connection = conn
         };
+        cmd.Parameters.AddWithValue("@email", email);
+        cmd.Parameters.AddWithValue("@parola", pass);
+       
+        var existaUseri = (int)cmd.ExecuteScalar();
+        if(existaUseri != 1)
+        {
+            return false;
+        }
         
         return true;
     }
