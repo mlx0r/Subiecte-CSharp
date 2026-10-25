@@ -38,9 +38,10 @@ partial class FormStart
         // pictureBoxStart
         // 
         pictureBoxStart.Image = Properties.Resources.good_food_2;
-        pictureBoxStart.Location = new Point(299, 119);
+        pictureBoxStart.Location = new Point(188, 75);
+        pictureBoxStart.Margin = new Padding(2, 2, 2, 2);
         pictureBoxStart.Name = "pictureBoxStart";
-        pictureBoxStart.Size = new Size(307, 123);
+        pictureBoxStart.Size = new Size(306, 119);
         pictureBoxStart.TabIndex = 0;
         pictureBoxStart.TabStop = false;
         // 
@@ -48,17 +49,19 @@ partial class FormStart
         // 
         labelStart.AutoSize = true;
         labelStart.Font = new Font("Segoe UI", 14F, FontStyle.Regular, GraphicsUnit.Point, 0);
-        labelStart.Location = new Point(119, 45);
+        labelStart.Location = new Point(83, 27);
+        labelStart.Margin = new Padding(2, 0, 2, 0);
         labelStart.Name = "labelStart";
-        labelStart.Size = new Size(735, 38);
+        labelStart.Size = new Size(502, 25);
         labelStart.TabIndex = 1;
         labelStart.Text = "Meniuri diverse caracterizate de transparenta si excelenta!";
         // 
         // buttonInregistrare
         // 
-        buttonInregistrare.Location = new Point(169, 354);
+        buttonInregistrare.Location = new Point(118, 212);
+        buttonInregistrare.Margin = new Padding(2, 2, 2, 2);
         buttonInregistrare.Name = "buttonInregistrare";
-        buttonInregistrare.Size = new Size(171, 57);
+        buttonInregistrare.Size = new Size(120, 34);
         buttonInregistrare.TabIndex = 2;
         buttonInregistrare.Text = "Inregistrare";
         buttonInregistrare.UseVisualStyleBackColor = true;
@@ -66,9 +69,10 @@ partial class FormStart
         // 
         // buttonAutentificare
         // 
-        buttonAutentificare.Location = new Point(582, 354);
+        buttonAutentificare.Location = new Point(407, 212);
+        buttonAutentificare.Margin = new Padding(2, 2, 2, 2);
         buttonAutentificare.Name = "buttonAutentificare";
-        buttonAutentificare.Size = new Size(171, 57);
+        buttonAutentificare.Size = new Size(120, 34);
         buttonAutentificare.TabIndex = 3;
         buttonAutentificare.Text = "Autentificare";
         buttonAutentificare.UseVisualStyleBackColor = true;
@@ -76,13 +80,14 @@ partial class FormStart
         // 
         // FormStart
         // 
-        AutoScaleDimensions = new SizeF(10F, 25F);
+        AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(911, 537);
+        ClientSize = new Size(638, 322);
         Controls.Add(buttonAutentificare);
         Controls.Add(buttonInregistrare);
         Controls.Add(labelStart);
         Controls.Add(pictureBoxStart);
+        Margin = new Padding(2, 2, 2, 2);
         Name = "FormStart";
         StartPosition = FormStartPosition.CenterScreen;
         Text = "Start";
