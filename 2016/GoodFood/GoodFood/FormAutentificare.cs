@@ -17,7 +17,9 @@ public partial class FormAutentificare : Form
             return;
             
         }
-
+        var email = textBoxEmail.Text;
+        //var user = new UserLogged();
+        UserLogged.Current.Email = email;
         var formOptiuni = new FormOptiuni();
         this.Hide();
         formOptiuni.Show();
