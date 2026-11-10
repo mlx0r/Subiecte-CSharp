@@ -8,14 +8,19 @@ namespace GoodFood;
 public class UserLogged
 {
     public string Email;
+    public int Kcal;
+    public static bool isLogged { get { return current != null; } }
 
-    public static readonly UserLogged Current = new();
-    //private static readonly UserLogged current = new();
+    private static UserLogged? current;
 
-    //public static UserLogged Current
-    //{
-    //    get { return current; }
-    //}
+    public static UserLogged Current
+    {
+        get
+        {
+            current ??= new();
+            return current;
+        }
+    }
 
     private UserLogged()
     {

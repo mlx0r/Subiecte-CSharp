@@ -24,7 +24,22 @@ public partial class FormAutentificare : Form
         this.Hide();
         formOptiuni.Show();
     }
-
+    private void obtineDateDB()
+    {
+        var conn = new SqlConnection
+        {
+            ConnectionString = Utils.ConnStr
+        };
+        conn.Open();
+        var cmd = new SqlCommand
+        {
+            CommandText = "SELECT kcal_zilnice FROM Clienti WHERE email=@email"
+            Connection = conn
+        };
+        cmd.Parameters.AddWithValue("@email", UserLogged.Current.Email);
+        var kcal = cmd.ExecuteScalar();
+        UserLogged.Current.Kcal = Convert.ToInt32(kcal);
+    }
     private bool esteValidUserul()
     {
         var email = textBoxEmail.Text;
