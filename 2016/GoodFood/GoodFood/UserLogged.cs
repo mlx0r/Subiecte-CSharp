@@ -22,6 +22,8 @@ public class UserLogged
         }
     }
 
+    internal List<ArticolComanda> ArticoleComandate { get; set; }
+
     private UserLogged()
     {
 

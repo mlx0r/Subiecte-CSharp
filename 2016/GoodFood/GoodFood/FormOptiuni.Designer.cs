@@ -40,15 +40,15 @@ partial class FormOptiuni
         labelInaltime = new Label();
         labelVarsta = new Label();
         tabPageComanda = new TabPage();
+        labelNecesarKcal = new Label();
         dgvMeniuri = new DataGridView();
         tabPageGenMeniu = new TabPage();
         tabPageGraficKcal = new TabPage();
-        labelNecesarKcal = new Label();
         labelTotalKcal = new Label();
         labelPretTotal = new Label();
-        textBox1 = new TextBox();
-        textBox2 = new TextBox();
-        textBox3 = new TextBox();
+        textBoxKcal = new TextBox();
+        textBoxTotalKcal = new TextBox();
+        textBoxPretTotal = new TextBox();
         buttonComanda = new Button();
         tabControlOptiuni.SuspendLayout();
         tabPageCalcKcal.SuspendLayout();
@@ -66,7 +66,7 @@ partial class FormOptiuni
         tabControlOptiuni.Margin = new Padding(2);
         tabControlOptiuni.Name = "tabControlOptiuni";
         tabControlOptiuni.SelectedIndex = 0;
-        tabControlOptiuni.Size = new Size(869, 496);
+        tabControlOptiuni.Size = new Size(869, 639);
         tabControlOptiuni.TabIndex = 0;
         tabControlOptiuni.SelectedIndexChanged += tabControlOptiuni_SelectedIndexChanged;
         // 
@@ -85,7 +85,7 @@ partial class FormOptiuni
         tabPageCalcKcal.Margin = new Padding(2);
         tabPageCalcKcal.Name = "tabPageCalcKcal";
         tabPageCalcKcal.Padding = new Padding(2);
-        tabPageCalcKcal.Size = new Size(861, 468);
+        tabPageCalcKcal.Size = new Size(861, 611);
         tabPageCalcKcal.TabIndex = 0;
         tabPageCalcKcal.Text = "CalculatorKcal";
         tabPageCalcKcal.UseVisualStyleBackColor = true;
@@ -175,16 +175,26 @@ partial class FormOptiuni
         // 
         // tabPageComanda
         // 
+        tabPageComanda.Controls.Add(labelNecesarKcal);
         tabPageComanda.Controls.Add(dgvMeniuri);
         tabPageComanda.Location = new Point(4, 24);
         tabPageComanda.Margin = new Padding(2);
         tabPageComanda.Name = "tabPageComanda";
         tabPageComanda.Padding = new Padding(2);
-        tabPageComanda.Size = new Size(861, 468);
+        tabPageComanda.Size = new Size(861, 611);
         tabPageComanda.TabIndex = 1;
         tabPageComanda.Text = "Comanda";
         tabPageComanda.UseVisualStyleBackColor = true;
         tabPageComanda.Click += tabPageComanda_Click;
+        // 
+        // labelNecesarKcal
+        // 
+        labelNecesarKcal.AutoSize = true;
+        labelNecesarKcal.Location = new Point(19, 493);
+        labelNecesarKcal.Name = "labelNecesarKcal";
+        labelNecesarKcal.Size = new Size(74, 15);
+        labelNecesarKcal.TabIndex = 8;
+        labelNecesarKcal.Text = "Necesar Kcal";
         // 
         // dgvMeniuri
         // 
@@ -196,13 +206,16 @@ partial class FormOptiuni
         dgvMeniuri.ReadOnly = true;
         dgvMeniuri.Size = new Size(849, 458);
         dgvMeniuri.TabIndex = 0;
+        dgvMeniuri.CellContentClick += dgvMeniuri_CellContentClick;
+        dgvMeniuri.CellValueChanged += dgvMeniuri_CellValueChanged;
+        dgvMeniuri.DataError += dgvMeniuri_DataError;
         // 
         // tabPageGenMeniu
         // 
         tabPageGenMeniu.Location = new Point(4, 24);
         tabPageGenMeniu.Margin = new Padding(2);
         tabPageGenMeniu.Name = "tabPageGenMeniu";
-        tabPageGenMeniu.Size = new Size(861, 468);
+        tabPageGenMeniu.Size = new Size(861, 611);
         tabPageGenMeniu.TabIndex = 2;
         tabPageGenMeniu.Text = "Generare Meniu";
         tabPageGenMeniu.UseVisualStyleBackColor = true;
@@ -212,19 +225,10 @@ partial class FormOptiuni
         tabPageGraficKcal.Location = new Point(4, 24);
         tabPageGraficKcal.Margin = new Padding(2);
         tabPageGraficKcal.Name = "tabPageGraficKcal";
-        tabPageGraficKcal.Size = new Size(861, 468);
+        tabPageGraficKcal.Size = new Size(861, 611);
         tabPageGraficKcal.TabIndex = 3;
         tabPageGraficKcal.Text = "Grafic Kcal";
         tabPageGraficKcal.UseVisualStyleBackColor = true;
-        // 
-        // labelNecesarKcal
-        // 
-        labelNecesarKcal.AutoSize = true;
-        labelNecesarKcal.Location = new Point(31, 552);
-        labelNecesarKcal.Name = "labelNecesarKcal";
-        labelNecesarKcal.Size = new Size(74, 15);
-        labelNecesarKcal.TabIndex = 1;
-        labelNecesarKcal.Text = "Necesar Kcal";
         // 
         // labelTotalKcal
         // 
@@ -244,26 +248,26 @@ partial class FormOptiuni
         labelPretTotal.TabIndex = 3;
         labelPretTotal.Text = "Pret total";
         // 
-        // textBox1
+        // textBoxKcal
         // 
-        textBox1.Location = new Point(120, 544);
-        textBox1.Name = "textBox1";
-        textBox1.Size = new Size(100, 23);
-        textBox1.TabIndex = 4;
+        textBoxKcal.Location = new Point(120, 544);
+        textBoxKcal.Name = "textBoxKcal";
+        textBoxKcal.Size = new Size(100, 23);
+        textBoxKcal.TabIndex = 4;
         // 
-        // textBox2
+        // textBoxTotalKcal
         // 
-        textBox2.Location = new Point(120, 588);
-        textBox2.Name = "textBox2";
-        textBox2.Size = new Size(100, 23);
-        textBox2.TabIndex = 5;
+        textBoxTotalKcal.Location = new Point(120, 588);
+        textBoxTotalKcal.Name = "textBoxTotalKcal";
+        textBoxTotalKcal.Size = new Size(100, 23);
+        textBoxTotalKcal.TabIndex = 5;
         // 
-        // textBox3
+        // textBoxPretTotal
         // 
-        textBox3.Location = new Point(120, 629);
-        textBox3.Name = "textBox3";
-        textBox3.Size = new Size(100, 23);
-        textBox3.TabIndex = 6;
+        textBoxPretTotal.Location = new Point(120, 629);
+        textBoxPretTotal.Name = "textBoxPretTotal";
+        textBoxPretTotal.Size = new Size(100, 23);
+        textBoxPretTotal.TabIndex = 6;
         // 
         // buttonComanda
         // 
@@ -273,19 +277,19 @@ partial class FormOptiuni
         buttonComanda.TabIndex = 7;
         buttonComanda.Text = "Comanda";
         buttonComanda.UseVisualStyleBackColor = true;
+        buttonComanda.Click += buttonComanda_Click;
         // 
         // FormOptiuni
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(882, 685);
-        Controls.Add(buttonComanda);
-        Controls.Add(textBox3);
-        Controls.Add(textBox2);
-        Controls.Add(textBox1);
-        Controls.Add(labelPretTotal);
         Controls.Add(labelTotalKcal);
-        Controls.Add(labelNecesarKcal);
+        Controls.Add(buttonComanda);
+        Controls.Add(textBoxKcal);
+        Controls.Add(textBoxTotalKcal);
+        Controls.Add(textBoxPretTotal);
+        Controls.Add(labelPretTotal);
         Controls.Add(tabControlOptiuni);
         Margin = new Padding(2);
         Name = "FormOptiuni";
@@ -294,6 +298,7 @@ partial class FormOptiuni
         tabPageCalcKcal.ResumeLayout(false);
         tabPageCalcKcal.PerformLayout();
         tabPageComanda.ResumeLayout(false);
+        tabPageComanda.PerformLayout();
         ((System.ComponentModel.ISupportInitialize)dgvMeniuri).EndInit();
         ResumeLayout(false);
         PerformLayout();
@@ -316,11 +321,11 @@ partial class FormOptiuni
     private Label labelInaltime;
     private Label labelVarsta;
     private DataGridView dgvMeniuri;
-    private Label labelNecesarKcal;
     private Label labelTotalKcal;
     private Label labelPretTotal;
-    private TextBox textBox1;
-    private TextBox textBox2;
-    private TextBox textBox3;
+    private TextBox textBoxKcal;
+    private TextBox textBoxTotalKcal;
+    private TextBox textBoxPretTotal;
     private Button buttonComanda;
+    private Label labelNecesarKcal;
 }

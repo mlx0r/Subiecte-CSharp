@@ -1,9 +1,12 @@
-﻿using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+﻿using System.Runtime.CompilerServices;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GoodFood;
 
 public partial class FormOptiuni : Form
 {
+    private const string headerCantitate = "Cantitate";
+    private const string headerAdauga = "Adauga";
     public FormOptiuni()
     {
         InitializeComponent();
@@ -32,16 +35,8 @@ public partial class FormOptiuni : Form
             textBoxNecesarKcal.Text = "2500";
         }
     }
-    public class Meniu
-    {
-        public int Id { get; set; }
-        public string Denumire { get; set; }
-        public string Descriere { get; set; }
-        public int Pret { get; set; }
-        public int Kcal { get; set; }
-        public int Felul { get; set; }
-    };
-    List<Meniu> extrageMeniuriDinFisier()
+
+    private List<Meniu> extrageMeniuriDinFisier()
     {
 
         var lines = File.ReadAllLines("meniu.txt");
@@ -78,7 +73,6 @@ public partial class FormOptiuni : Form
         if (tabControlOptiuni.SelectedTab == tabPageComanda)
         {
             afiseazaMeniuri();
-
         }
     }
 
@@ -87,22 +81,30 @@ public partial class FormOptiuni : Form
         List<Meniu> listaMeniuri = extrageMeniuriDinFisier();
         dgvMeniuri.DataSource = listaMeniuri;
         dgvMeniuri.ReadOnly = false;
-        const string headerCantitate = "Cantitate";
+
         DataGridViewTextBoxColumn colCantitate = new()
         {
+            Name = headerCantitate,
             HeaderText = headerCantitate,
             ReadOnly = false,
-            DefaultCellStyle = new DataGridViewCellStyle
+            ValueType = typeof(int),
+            CellTemplate = new DataGridViewTextBoxCell
             {
-                NullValue = "0"
-            }
+                Value = 0,
+                ValueType = typeof(int)
+            },
+            //DefaultCellStyle = new DataGridViewCellStyle
+            //{
+            //    NullValue = "0"
+            //}
         };
         dgvMeniuri.Columns.Add(colCantitate);
         DataGridViewButtonColumn colBtnAdauga = new()
         {
+            Name = headerAdauga,
             UseColumnTextForButtonValue = true,
-            Text = "Adauga",
-            HeaderText = "Adauga"
+            Text = headerAdauga,
+            HeaderText = headerAdauga
         };
         dgvMeniuri.Columns.Add(colBtnAdauga);
         foreach (DataGridViewColumn col in dgvMeniuri.Columns)
@@ -113,5 +115,135 @@ public partial class FormOptiuni : Form
             }
             col.ReadOnly = true;
         }
+        foreach (DataGridViewRow row in dgvMeniuri.Rows)
+        {
+            row.Cells[headerCantitate].Value = 0;
+        }
+        textBoxKcal.Text = UserLogged.Current.Kcal.ToString();
+    }
+
+
+    private void dgvMeniuri_CellContentClick(object sender, DataGridViewCellEventArgs e)
+    {
+        DataGridViewColumn? currColumn = null;
+        foreach (DataGridViewColumn col in dgvMeniuri.Columns)
+        {
+            if (col.Index == e.ColumnIndex)
+            {
+                currColumn = col;
+            }
+        }
+        if (currColumn?.HeaderText != headerAdauga)
+        {
+            return;
+        }
+
+        dgvMeniuri_CellAdaugaClick(e);
+    }
+
+    private void dgvMeniuri_CellAdaugaClick(DataGridViewCellEventArgs e)
+    {
+        var colCantitate = getColumnByText(dgvMeniuri, headerCantitate);
+        if (colCantitate == null)
+        {
+            return;
+        }
+
+        var cantitateRaw = dgvMeniuri.Rows[e.RowIndex].Cells[colCantitate.Index].Value;
+        if (!int.TryParse(cantitateRaw?.ToString(), out var cantitate))
+        {
+            cantitate = 0;
+        }
+        cantitate++;
+
+        dgvMeniuri.Rows[e.RowIndex].Cells[colCantitate.Index].Value = cantitate;
+        refreshTotaluri();
+    }
+
+    private static DataGridViewColumn? getColumnByText(DataGridView dgv, string text)
+    {
+        foreach (DataGridViewColumn col in dgv.Columns)
+        {
+            if (string.Equals(col.HeaderText, text, StringComparison.OrdinalIgnoreCase))
+            {
+                return col;
+            }
+        }
+
+        return null;
+    }
+
+    private void dgvMeniuri_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+    {
+        if (e.ColumnIndex != getColumnByText(dgvMeniuri, headerCantitate)?.Index)
+        {
+            return;
+        }
+
+        refreshTotaluri();
+    }
+
+    private void refreshTotaluri()
+    {
+        var colPret = getColumnByText(dgvMeniuri, "pret")!;
+        var colKcal = getColumnByText(dgvMeniuri, "kcal")!;
+
+        int sumKcal = 0;
+        int sumPret = 0;
+        foreach (DataGridViewRow row in dgvMeniuri.Rows)
+        {
+            int.TryParse(row.Cells[headerCantitate].Value?.ToString(), out var cantitate);
+            int kcal = (int)row.Cells[colKcal.Index].Value!;
+            int pret = (int)row.Cells[colPret.Index].Value!;
+            sumKcal += cantitate * kcal;
+            sumPret += cantitate * pret;
+        }
+
+        textBoxTotalKcal.Text = sumKcal.ToString();
+        textBoxPretTotal.Text = sumPret.ToString();
+    }
+
+    private void dgvMeniuri_DataError(object sender, DataGridViewDataErrorEventArgs e)
+    {
+        if (e.ColumnIndex == getColumnByText(dgvMeniuri, headerCantitate)!.Index)
+        {
+            MessageBox.Show("Cantitate invalida", "Eroare", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    private void buttonComanda_Click(object sender, EventArgs e)
+    {
+        var articole = new List<ArticolComanda>();
+        var idToCantitate = new Dictionary<int, int>();
+
+        var colId = getColumnByText(dgvMeniuri, "Id")!;
+        var colCantitate = getColumnByText(dgvMeniuri, headerCantitate)!;
+        foreach (DataGridViewRow row in dgvMeniuri.Rows)
+        {
+            int id = (int)row.Cells[colId.Index].Value!;
+            int cantitate = (int)row.Cells[colCantitate.Index].Value!;
+
+            idToCantitate[id] = cantitate;
+        }
+
+        var meniuri = (List<Meniu>) dgvMeniuri.DataSource!;
+        foreach (var meniu in meniuri)
+        {
+            if (idToCantitate[meniu.Id] == 0)
+            {
+                continue;
+            }
+
+            articole.Add(new ArticolComanda
+            {
+                MeniuArticol = meniu,
+                Cantitate = idToCantitate[meniu.Id]
+            });
+        }
+        UserLogged.Current.ArticoleComandate = articole;
+        var formVizualizare = new VizualizareComanda();
+        this.Hide();
+        formVizualizare.Show();
+        
     }
 }

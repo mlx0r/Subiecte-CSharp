@@ -20,6 +20,7 @@ public partial class FormAutentificare : Form
         var email = textBoxEmail.Text;
         //var user = new UserLogged();
         UserLogged.Current.Email = email;
+        obtineDateDB();
         var formOptiuni = new FormOptiuni();
         this.Hide();
         formOptiuni.Show();
@@ -33,7 +34,7 @@ public partial class FormAutentificare : Form
         conn.Open();
         var cmd = new SqlCommand
         {
-            CommandText = "SELECT kcal_zilnice FROM Clienti WHERE email=@email"
+            CommandText = "SELECT kcal_zilnice FROM Clienti WHERE email=@email",
             Connection = conn
         };
         cmd.Parameters.AddWithValue("@email", UserLogged.Current.Email);
@@ -55,7 +56,6 @@ public partial class FormAutentificare : Form
             ConnectionString = Utils.ConnStr
         };
         conn.Open();
-        // TODO: COUNT(*) PT users cu matching email si pw
         var cmd = new SqlCommand
         {
             CommandText = "SELECT COUNT(*) FROM Clienti WHERE email=@email AND parola=@parola",
