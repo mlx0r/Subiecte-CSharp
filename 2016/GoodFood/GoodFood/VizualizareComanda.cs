@@ -57,8 +57,16 @@ public partial class VizualizareComanda : Form
             cantitate = 0;
         }
         cantitate--;
-
+        if (cantitate <= 0)
+        {
+            var listaArticole = UserLogged.Current.ArticoleComandate;
+            listaArticole.RemoveAt(e.RowIndex);
+            dgvVizComanda.Rows.RemoveAt(e.RowIndex);
+            refreshTotaluri();
+            return;
+        }
         dgvVizComanda.Rows[e.RowIndex].Cells[colCantitate.Index].Value = cantitate;
+        
         refreshTotaluri();
     }
 
@@ -75,7 +83,7 @@ public partial class VizualizareComanda : Form
         return null;
     }
 
-
+    //TODO: buttonFinalizare + INSERT shopping cart in DB
 
     private void refreshTotaluri()
     {
